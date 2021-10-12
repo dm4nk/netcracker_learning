@@ -1,12 +1,15 @@
 package model.buildings.flat;
 
+import model.buildings.Building;
+import model.buildings.Floor;
+import model.buildings.Space;
 import model.exeptions.FloorIndexOutOfBoundsException;
 import model.exeptions.InvalidRoomsCountException;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
-public class Dwelling {
-    private DwellingFloor[] floors;
+public class Dwelling implements Building {
+    private final Floor[] floors;
 
     public Dwelling(int floorsCount, int[] flatsCount) {
         if (floorsCount != flatsCount.length) throw new InvalidRoomsCountException();
@@ -29,7 +32,7 @@ public class Dwelling {
     public int flatsCount() {
         int sum = 0;
 
-        for (DwellingFloor floor : floors)
+        for (Floor floor : floors)
             sum += floor.size();
 
         return sum;
@@ -38,7 +41,7 @@ public class Dwelling {
     public int sumRoomsCount() {
         int sum = 0;
 
-        for (DwellingFloor floor : floors)
+        for (Floor floor : floors)
             sum += floor.sumRoomCount();
 
         return sum;
@@ -47,55 +50,55 @@ public class Dwelling {
     public int sumSquare() {
         int sum = 0;
 
-        for (DwellingFloor floor : floors)
+        for (Floor floor : floors)
             sum += floor.sumSquare();
 
         return sum;
     }
 
-    public DwellingFloor[] getAllFloors() {
+    public Floor[] getAllFloors() {
         return floors;
     }
 
-    public DwellingFloor getFloor(int number) {
-        checkIfNumberIsValid(number, size()-1, FloorIndexOutOfBoundsException.class);
+    public Floor getFloor(int number) {
+        checkIfNumberIsValid(number, size() - 1, FloorIndexOutOfBoundsException.class);
         return floors[number];
     }
 
-    public void setFloor(int number, DwellingFloor dwellingFloor) {
-        checkIfNumberIsValid(number, size()-1, FloorIndexOutOfBoundsException.class);
-        floors[number] = dwellingFloor;
+    public void setFloor(int number, Floor floor) {
+        checkIfNumberIsValid(number, size() - 1, FloorIndexOutOfBoundsException.class);
+        floors[number] = floor;
     }
 
-    public Flat getOffice(int number) {
-        checkIfNumberIsValid(number, sumRoomsCount()-1, FloorIndexOutOfBoundsException.class);
-        Entity<DwellingFloor, Integer> floorAndNumber = countFloorAndFlat(number);
+    public Space getSpace(int number) {
+        checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
+        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
         return floorAndNumber.floor.getFlat(floorAndNumber.number);
     }
 
-    public void setOffice(int number, Flat flat) {
-        checkIfNumberIsValid(number, sumRoomsCount()-1, FloorIndexOutOfBoundsException.class);
-        Entity<DwellingFloor, Integer> floorAndNumber = countFloorAndFlat(number);
+    public void setSpace(int number, Space space) {
+        checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
+        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
-        floorAndNumber.floor.setFlat(floorAndNumber.number, flat);
+        floorAndNumber.floor.setFlat(floorAndNumber.number, space);
     }
 
-    public void addOffice(int number, Flat flat) {
+    public void addSpace(int number, Space space) {
         checkIfNumberIsValid(number, sumRoomsCount(), FloorIndexOutOfBoundsException.class);
-        Entity<DwellingFloor, Integer> floorAndNumber = countFloorAndFlat(number);
+        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
-        floorAndNumber.floor.addFlat(floorAndNumber.number, flat);
+        floorAndNumber.floor.addFlat(floorAndNumber.number, space);
     }
 
-    public void removeOffice(int number) {
-        checkIfNumberIsValid(number, sumRoomsCount()-1, FloorIndexOutOfBoundsException.class);
-        Entity<DwellingFloor, Integer> floorAndNumber = countFloorAndFlat(number);
+    public void removeSpace(int number) {
+        checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
+        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
         floorAndNumber.floor.removeFlat(floorAndNumber.number);
     }
 
-    private Entity<DwellingFloor, Integer> countFloorAndFlat(int number) {
+    private Entity<Floor, Integer> countFloorAndFlat(int number) {
         int i = 0;
         int j = 0;
         while ((i + getFloor(j++).size()) <= number) {
@@ -109,8 +112,8 @@ public class Dwelling {
         double[] fl = new double[flatsCount()];
 
         int i = 0;
-        for (DwellingFloor d : floors)
-            for (Flat f : d.flats())
+        for (Floor d : floors)
+            for (Space f : d.flats())
                 fl[i++] = f.getSpace();
 
         sort(fl);

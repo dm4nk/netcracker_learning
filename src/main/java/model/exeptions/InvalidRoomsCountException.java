@@ -1,6 +1,6 @@
 package model.exeptions;
 
-public class InvalidRoomsCountException extends IllegalArgumentException{
+public class InvalidRoomsCountException extends IllegalArgumentException {
     public InvalidRoomsCountException() {
     }
 

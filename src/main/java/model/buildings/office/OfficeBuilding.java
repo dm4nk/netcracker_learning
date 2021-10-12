@@ -1,13 +1,16 @@
 package model.buildings.office;
 
+import model.buildings.Building;
+import model.buildings.Floor;
+import model.buildings.Space;
 import model.exeptions.FloorIndexOutOfBoundsException;
 import model.exeptions.InvalidRoomsCountException;
 import model.utilities.MyList;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
-public class OfficeBuilding {
-    private MyList<OfficeFloor> floors;
+public class OfficeBuilding implements Building {
+    private final MyList<Floor> floors;
 
     public OfficeBuilding(int floorsCount, int[] flatsCount) {
         if (floorsCount != flatsCount.length) throw new InvalidRoomsCountException();
@@ -19,11 +22,11 @@ public class OfficeBuilding {
         }
     }
 
-    public OfficeBuilding(OfficeFloor[] officeFloors) {
+    public OfficeBuilding(Floor[] officeFloors) {
 
         floors = new MyList<>();
 
-        for(OfficeFloor o : officeFloors)
+        for (Floor o : officeFloors)
             floors.addToTail(o);
     }
 
@@ -69,45 +72,45 @@ public class OfficeBuilding {
         return floors;
     }
 
-    public OfficeFloor getFloor(int number) {
-        checkIfNumberIsValid(number, size()-1, FloorIndexOutOfBoundsException.class);
+    public Floor getFloor(int number) {
+        checkIfNumberIsValid(number, size() - 1, FloorIndexOutOfBoundsException.class);
         return floors.get(number);
     }
 
-    public void setFloor(int number, OfficeFloor officeFloor) {
-        checkIfNumberIsValid(number, size()-1, FloorIndexOutOfBoundsException.class);
-        floors.set(number, officeFloor);
+    public void setFloor(int number, Floor floor) {
+        checkIfNumberIsValid(number, size() - 1, FloorIndexOutOfBoundsException.class);
+        floors.set(number, floor);
     }
 
-    public Office getOffice(int number) {
-        checkIfNumberIsValid(number, sumRoomsCount()-1, FloorIndexOutOfBoundsException.class);
-        Entity<OfficeFloor, Integer> floorAndNumber = countFloorAndFlat(number);
+    public Space getSpace(int number) {
+        checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
+        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
         return floorAndNumber.floor.getFlat(floorAndNumber.number);
     }
 
-    public void setOffice(int number, Office office) {
-        checkIfNumberIsValid(number, sumRoomsCount()-1, FloorIndexOutOfBoundsException.class);
-        Entity<OfficeFloor, Integer> floorAndNumber = countFloorAndFlat(number);
+    public void setSpace(int number, Space space) {
+        checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
+        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
-        floorAndNumber.floor.setFlat(floorAndNumber.number, office);
+        floorAndNumber.floor.setFlat(floorAndNumber.number, space);
     }
 
-    public void addOffice(int number, Office office) {
+    public void addSpace(int number, Space space) {
         checkIfNumberIsValid(number, sumRoomsCount(), FloorIndexOutOfBoundsException.class);
-        Entity<OfficeFloor, Integer> floorAndNumber = countFloorAndFlat(number);
+        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
-        floorAndNumber.floor.addFlat(floorAndNumber.number, office);
+        floorAndNumber.floor.addFlat(floorAndNumber.number, space);
     }
 
-    public void removeOffice(int number) {
-        checkIfNumberIsValid(number, sumRoomsCount()-1, FloorIndexOutOfBoundsException.class);
-        Entity<OfficeFloor, Integer> floorAndNumber = countFloorAndFlat(number);
+    public void removeSpace(int number) {
+        checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
+        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
         floorAndNumber.floor.removeFlat(floorAndNumber.number);
     }
 
-    private Entity<OfficeFloor, Integer> countFloorAndFlat(int number) {
+    private Entity<Floor, Integer> countFloorAndFlat(int number) {
         int i = 0;
         int j = 0;
         while ((i + getFloor(j++).size()) <= number) {
@@ -122,7 +125,7 @@ public class OfficeBuilding {
 
         int i = 0;
         for (Object d : floors)
-            for (Office f : ((OfficeFloor) d).flats())
+            for (Space f : ((OfficeFloor) d).flats())
                 fl[i++] = f.getSpace();
 
         sort(fl);

@@ -1,6 +1,6 @@
 package model.exeptions;
 
-public class FloorIndexOutOfBoundsException extends IndexOutOfBoundsException{
+public class FloorIndexOutOfBoundsException extends IndexOutOfBoundsException {
     public FloorIndexOutOfBoundsException() {
         super();
     }

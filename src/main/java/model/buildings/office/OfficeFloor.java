@@ -1,23 +1,25 @@
 package model.buildings.office;
 
+import model.buildings.Floor;
+import model.buildings.Space;
 import model.exeptions.SpaceIndexOutOfBoundsException;
 import model.utilities.MyList;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
 
-public class OfficeFloor {
-    private MyList<Office> offices;
+public class OfficeFloor implements Floor {
+    private final MyList<Space> offices;
 
     public OfficeFloor(Office[] offices) {
         this.offices = new MyList<>();
-        for(Office o : offices)
+        for (Office o : offices)
             this.offices.addToTail(o);
     }
 
     public OfficeFloor(int flatsCount) {
         this.offices = new MyList<>();
-        for(int i = 0; i<flatsCount; ++i)
+        for (int i = 0; i < flatsCount; ++i)
             this.offices.addToTail(new Office());
     }
 
@@ -29,7 +31,7 @@ public class OfficeFloor {
         int sum = 0;
 
         for (Object f : offices) {
-            sum += ((Office)f).getSpace();
+            sum += ((Office) f).getSpace();
         }
         return sum;
     }
@@ -38,33 +40,33 @@ public class OfficeFloor {
         int sum = 0;
 
         for (Object f : offices) {
-            sum += ((Office)f).getRooms();
+            sum += ((Office) f).getRooms();
         }
         return sum;
     }
 
-    public Office[] flats() {
-        Office[] offices = new Office[size()];
+    public Space[] flats() {
+        Space[] offices = new Office[size()];
 
         int i = 0;
         for (Object f : this.offices) {
-            offices[i++] = ((Office)f);
+            offices[i++] = ((Office) f);
         }
 
         return offices;
     }
 
-    public Office getFlat(int number) {
-        checkIfNumberIsValid(number, size()-1, SpaceIndexOutOfBoundsException.class);
+    public Space getFlat(int number) {
+        checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
         return offices.get(number);
     }
 
-    public void setFlat(int number, Office office) {
-        checkIfNumberIsValid(number, size()-1, SpaceIndexOutOfBoundsException.class);
+    public void setFlat(int number, Space office) {
+        checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
         offices.set(number, office);
     }
 
-    public void addFlat(int number, Office office) {
+    public void addFlat(int number, Space office) {
         checkIfNumberIsValid(number, size(), SpaceIndexOutOfBoundsException.class);
 
         offices.add(number, office);
@@ -72,13 +74,13 @@ public class OfficeFloor {
 
     public void removeFlat(int number) {
         if (size() <= 1) throw new IllegalStateException();
-        checkIfNumberIsValid(number, size()-1, SpaceIndexOutOfBoundsException.class);
+        checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
 
         offices.remove(number);
     }
 
-    public Office getBestSpace() {
-        Office bestSpaceOffice = getFlat(0);
+    public Space getBestSpace() {
+        Space bestSpaceOffice = getFlat(0);
         for (int i = 1; i < size(); ++i) {
             if (bestSpaceOffice.getSpace() < getFlat(i).getSpace())
                 bestSpaceOffice = getFlat(i);

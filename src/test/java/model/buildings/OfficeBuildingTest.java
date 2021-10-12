@@ -17,10 +17,10 @@ public class OfficeBuildingTest extends TestCase {
 
         OfficeBuilding officeBuilding = new OfficeBuilding(new OfficeFloor[]{floor1, floor2, floor3});
 
-        assertEquals(new Office(1, 1), officeBuilding.getOffice(0));
-        assertEquals(new Office(3, 3), officeBuilding.getOffice(5));
-        assertEquals(new Office(2, 1), officeBuilding.getOffice(1));
-        assertEquals(new Office(2, 2), officeBuilding.getOffice(2));
+        assertEquals(new Office(1, 1), officeBuilding.getSpace(0));
+        assertEquals(new Office(3, 3), officeBuilding.getSpace(5));
+        assertEquals(new Office(2, 1), officeBuilding.getSpace(1));
+        assertEquals(new Office(2, 2), officeBuilding.getSpace(2));
     }
 
     public void testGetSquares() {

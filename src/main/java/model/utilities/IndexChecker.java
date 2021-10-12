@@ -1,7 +1,5 @@
 package model.utilities;
 
-import model.exeptions.SpaceIndexOutOfBoundsException;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
