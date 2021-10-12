@@ -26,32 +26,15 @@ public class MyList<T> implements Iterable<T> {
     }
 
     public void add(int index, T t) {
-        if (index == size)
-            addToTail(t);
-        else {
-            Node tmp = getNodeBefore(index);
-            tmp.next = new Node(tmp.next, t);
-            ++size;
-        }
+        Node tmp = getNodeBefore(index);
+        tmp.next = new Node(tmp.next, t);
+        ++size;
     }
 
     public void remove(int index) {
         if (size == 0) throw new IllegalStateException();
-
-        if (index == size)
-            removeFromTail();
-        else {
-            Node tmp = getNodeBefore(index);
-            tmp.next = tmp.next.next;
-            --size;
-        }
-    }
-
-    public void removeFromTail() {
-        if (size == 0) throw new IllegalStateException();
-
-        Node preLastNode = getNodeBefore(size - 1);
-        preLastNode.next = head.next;
+        Node tmp = getNodeBefore(index);
+        tmp.next = tmp.next.next;
         --size;
     }
 
@@ -70,11 +53,6 @@ public class MyList<T> implements Iterable<T> {
             tmp = tmp.next;
         }
         return tmp;
-    }
-
-    @Override
-    public void forEach(Consumer action) {
-
     }
 
     @Override
