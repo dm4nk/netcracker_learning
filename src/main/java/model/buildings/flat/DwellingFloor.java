@@ -1,4 +1,9 @@
-package model.buildings;
+package model.buildings.flat;
+
+import model.exeptions.SpaceIndexOutOfBoundsException;
+
+import static model.utilities.IndexChecker.checkIfNumberIsValid;
+
 
 public class DwellingFloor {
     private Flat[] flats;
@@ -23,7 +28,7 @@ public class DwellingFloor {
         int sum = 0;
 
         for (Flat f : flats) {
-            sum += f.getSquare();
+            sum += f.getSpace();
         }
         return sum;
     }
@@ -42,14 +47,17 @@ public class DwellingFloor {
     }
 
     public Flat getFlat(int number) {
+        checkIfNumberIsValid(number, size()-1, SpaceIndexOutOfBoundsException.class);
         return flats[number];
     }
 
     public void setFlat(int number, Flat flat) {
+        checkIfNumberIsValid(number, size()-1, SpaceIndexOutOfBoundsException.class);
         flats[number] = flat;
     }
 
     public void addFlat(int number, Flat flat) {
+        checkIfNumberIsValid(number, size(), SpaceIndexOutOfBoundsException.class);
         Flat[] newFlats = new Flat[size() + 1];
 
         arrayCopy(flats, 0, newFlats, 0, number);
@@ -63,6 +71,7 @@ public class DwellingFloor {
 
     public void removeFlat(int number) {
         if (size() <= 1) throw new IllegalStateException();
+        checkIfNumberIsValid(number, size()-1, SpaceIndexOutOfBoundsException.class);
 
         Flat[] newFlats = new Flat[size() - 1];
 
@@ -75,22 +84,17 @@ public class DwellingFloor {
     public Flat getBestSpace() {
         Flat bestSpaceFlat = getFlat(0);
         for (int i = 1; i < size(); ++i) {
-            if (bestSpaceFlat.getSquare() < getFlat(i).getSquare())
+            if (bestSpaceFlat.getSpace() < getFlat(i).getSpace())
                 bestSpaceFlat = getFlat(i);
         }
         return bestSpaceFlat;
     }
 
     private void arrayCopy(Flat[] source, int sourcePosition, Flat[] destination, int destinationPosition, int length) {
-        checkIfNumberIsValid(sourcePosition, source.length - length);
-        checkIfNumberIsValid(destinationPosition, destination.length - length);
+        checkIfNumberIsValid(sourcePosition, source.length - length, SpaceIndexOutOfBoundsException.class);
+        checkIfNumberIsValid(destinationPosition, destination.length - length, SpaceIndexOutOfBoundsException.class);
 
         for (int i = 0; i < length; ++i)
             destination[destinationPosition + i] = source[sourcePosition + i];
-    }
-
-    private void checkIfNumberIsValid(int number, int border) {
-        if (number < 0 || number > border)
-            throw new IndexOutOfBoundsException("index: " + number + ", bounds: 0, " + border);
     }
 }
