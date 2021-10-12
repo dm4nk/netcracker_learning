@@ -3,8 +3,6 @@ package model.utilities;
 import junit.framework.TestCase;
 import model.buildings.office.Office;
 
-import java.util.Date;
-
 public class MyListTest extends TestCase {
 
     public void testAddToTail() {

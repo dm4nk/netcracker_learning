@@ -2,35 +2,40 @@ package model.buildings.office;
 
 import model.exeptions.FloorIndexOutOfBoundsException;
 import model.exeptions.InvalidRoomsCountException;
+import model.utilities.MyList;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
 public class OfficeBuilding {
-    private OfficeFloor[] floors;
+    private MyList<OfficeFloor> floors;
 
     public OfficeBuilding(int floorsCount, int[] flatsCount) {
         if (floorsCount != flatsCount.length) throw new InvalidRoomsCountException();
-        floors = new OfficeFloor[floorsCount];
 
-        int i = 0;
+        floors = new MyList<>();
+
         for (int f : flatsCount) {
-            floors[i++] = new OfficeFloor(f);
+            floors.addToTail(new OfficeFloor(f));
         }
     }
 
     public OfficeBuilding(OfficeFloor[] officeFloors) {
-        floors = officeFloors;
+
+        floors = new MyList<>();
+
+        for(OfficeFloor o : officeFloors)
+            floors.addToTail(o);
     }
 
     public int size() {
-        return floors.length;
+        return floors.size();
     }
 
     public int flatsCount() {
         int sum = 0;
 
-        for (OfficeFloor floor : floors)
-            sum += floor.size();
+        for (Object floor : floors)
+            sum += ((OfficeFloor) floor).size();
 
         return sum;
     }
@@ -38,8 +43,8 @@ public class OfficeBuilding {
     public int sumRoomsCount() {
         int sum = 0;
 
-        for (OfficeFloor floor : floors)
-            sum += floor.sumRoomCount();
+        for (Object floor : floors)
+            sum += ((OfficeFloor) floor).sumRoomCount();
 
         return sum;
     }
@@ -47,24 +52,31 @@ public class OfficeBuilding {
     public int sumSquare() {
         int sum = 0;
 
-        for (OfficeFloor floor : floors)
-            sum += floor.sumSquare();
+        for (Object floor : floors)
+            sum += ((OfficeFloor) floor).sumSquare();
 
         return sum;
     }
 
     public OfficeFloor[] getAllFloors() {
+
+        OfficeFloor[] floors = new OfficeFloor[size()];
+
+        int i = 0;
+        for (Object floor : this.floors)
+            floors[i++] = ((OfficeFloor) floor);
+
         return floors;
     }
 
     public OfficeFloor getFloor(int number) {
         checkIfNumberIsValid(number, size()-1, FloorIndexOutOfBoundsException.class);
-        return floors[number];
+        return floors.get(number);
     }
 
     public void setFloor(int number, OfficeFloor officeFloor) {
         checkIfNumberIsValid(number, size()-1, FloorIndexOutOfBoundsException.class);
-        floors[number] = officeFloor;
+        floors.set(number, officeFloor);
     }
 
     public Office getOffice(int number) {
@@ -109,8 +121,8 @@ public class OfficeBuilding {
         double[] fl = new double[flatsCount()];
 
         int i = 0;
-        for (OfficeFloor d : floors)
-            for (Office f : d.flats())
+        for (Object d : floors)
+            for (Office f : ((OfficeFloor) d).flats())
                 fl[i++] = f.getSpace();
 
         sort(fl);

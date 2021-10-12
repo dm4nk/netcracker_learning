@@ -8,8 +8,8 @@ import model.exeptions.InvalidSpaceAreaException;
 @EqualsAndHashCode
 @ToString
 public class Flat {
-    private static final int DEFAULT_SQUARE = 250;
-    private static final int DEFAULT_ROOMS = 1;
+    private static final int DEFAULT_SQUARE = 50;
+    private static final int DEFAULT_ROOMS = 2;
 
     private double space;
     private int rooms;

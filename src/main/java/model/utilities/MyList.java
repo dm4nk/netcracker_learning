@@ -1,10 +1,9 @@
 package model.utilities;
 
-import lombok.ToString;
+import java.util.Iterator;
+import java.util.function.Consumer;
 
-import java.util.LinkedList;
-
-public class MyList<T> {
+public class MyList<T> implements Iterable {
     private class Node {
         private T t;
         private Node next;
@@ -35,17 +34,6 @@ public class MyList<T> {
         }
         ++size;
     }
-
-//    public void addToHead(T t){
-//        if(head.next == head){
-//            Node node = new Node(null, t);
-//            head.next = node.next = node;
-//        }
-//        else {
-//           head.next = getLastNode().next = new Node(head.next, t);
-//        }
-//        ++size;
-//    }
 
     public void add(int index, T t){
         if(index == size)
@@ -81,6 +69,10 @@ public class MyList<T> {
         return getNodeBefore(index).next.t;
     }
 
+    public void set(int index, T t){
+        getNodeBefore(index).next.t = t;
+    }
+
     private Node getNodeBefore(int index){
         Node tmp = head;
         int i = 0;
@@ -88,5 +80,28 @@ public class MyList<T> {
             tmp = tmp.next;
         }
         return tmp;
+    }
+
+    @Override
+    public void forEach(Consumer action) {
+
+    }
+
+    @Override
+    public Iterator<T> iterator(){
+       return new Iterator<T>() {
+           Node node = head.next;
+           @Override
+           public boolean hasNext() {
+               return node != head.next;
+           }
+
+           @Override
+           public T next() {
+               Node now = node;
+               node = node.next;
+               return now.t;
+           }
+       };
     }
 }
