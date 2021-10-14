@@ -1,11 +1,11 @@
 package model.utilities;
 
 import java.util.Iterator;
-import java.util.function.Consumer;
 
 public class MyList<T> implements Iterable<T> {
     private final Node head = new Node(null, null);
     private int size;
+
     public MyList() {
         size = 0;
         head.next = head;

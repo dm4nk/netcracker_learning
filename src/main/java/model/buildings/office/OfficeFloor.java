@@ -11,9 +11,9 @@ import static model.utilities.IndexChecker.checkIfNumberIsValid;
 public class OfficeFloor implements Floor {
     private final MyList<Space> offices;
 
-    public OfficeFloor(Office[] offices) {
+    public OfficeFloor(Space[] offices) {
         this.offices = new MyList<>();
-        for (Office o : offices)
+        for (Space o : offices)
             this.offices.addToTail(o);
     }
 
@@ -30,8 +30,8 @@ public class OfficeFloor implements Floor {
     public int sumSquare() {
         int sum = 0;
 
-        for (Object f : offices) {
-            sum += ((Office) f).getSpace();
+        for (Space f : offices) {
+            sum += f.getSpace();
         }
         return sum;
     }
@@ -39,18 +39,18 @@ public class OfficeFloor implements Floor {
     public int sumRoomCount() {
         int sum = 0;
 
-        for (Object f : offices) {
-            sum += ((Office) f).getRooms();
+        for (Space f : offices) {
+            sum += f.getRooms();
         }
         return sum;
     }
 
     public Space[] flats() {
-        Space[] offices = new Office[size()];
+        Space[] offices = new Space[size()];
 
         int i = 0;
-        for (Object f : this.offices) {
-            offices[i++] = ((Office) f);
+        for (Space f : this.offices) {
+            offices[i++] =  f;
         }
 
         return offices;

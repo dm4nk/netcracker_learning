@@ -108,6 +108,7 @@ public class Dwelling implements Building {
         return new Entity<>(getFloor(j - 1), number - i);
     }
 
+    //todo: массив Space
     public double[] getSquares() {
         double[] fl = new double[flatsCount()];
 

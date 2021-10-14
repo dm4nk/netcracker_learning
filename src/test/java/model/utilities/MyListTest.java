@@ -63,14 +63,7 @@ public class MyListTest extends TestCase {
         list.addToTail(office2);
         list.addToTail(office3);
 
-        System.out.println(list.get(0));
-        System.out.println(list.get(1));
-        System.out.println(list.get(2));
-
         list.remove(1);
-
-        System.out.println(list.get(0));
-        System.out.println(list.get(1));
 
         assertEquals(2, list.size());
         assertEquals(office1, list.get(0));

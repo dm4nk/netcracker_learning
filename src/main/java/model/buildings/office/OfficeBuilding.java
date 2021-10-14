@@ -37,8 +37,8 @@ public class OfficeBuilding implements Building {
     public int flatsCount() {
         int sum = 0;
 
-        for (Object floor : floors)
-            sum += ((OfficeFloor) floor).size();
+        for (Floor floor : floors)
+            sum += floor.size();
 
         return sum;
     }
@@ -46,8 +46,8 @@ public class OfficeBuilding implements Building {
     public int sumRoomsCount() {
         int sum = 0;
 
-        for (Object floor : floors)
-            sum += ((OfficeFloor) floor).sumRoomCount();
+        for (Floor floor : floors)
+            sum += floor.sumRoomCount();
 
         return sum;
     }
@@ -55,19 +55,19 @@ public class OfficeBuilding implements Building {
     public int sumSquare() {
         int sum = 0;
 
-        for (Object floor : floors)
-            sum += ((OfficeFloor) floor).sumSquare();
+        for (Floor floor : floors)
+            sum += floor.sumSquare();
 
         return sum;
     }
 
-    public OfficeFloor[] getAllFloors() {
+    public Floor[] getAllFloors() {
 
-        OfficeFloor[] floors = new OfficeFloor[size()];
+        Floor[] floors = new Floor[size()];
 
         int i = 0;
-        for (Object floor : this.floors)
-            floors[i++] = ((OfficeFloor) floor);
+        for (Floor floor : this.floors)
+            floors[i++] =  floor;
 
         return floors;
     }
@@ -120,12 +120,13 @@ public class OfficeBuilding implements Building {
         return new Entity<>(getFloor(j - 1), number - i);
     }
 
+    //todo: массив Space
     public double[] getSquares() {
         double[] fl = new double[flatsCount()];
 
         int i = 0;
-        for (Object d : floors)
-            for (Space f : ((OfficeFloor) d).flats())
+        for (Floor d : floors)
+            for (Space f : d.flats())
                 fl[i++] = f.getSpace();
 
         sort(fl);
