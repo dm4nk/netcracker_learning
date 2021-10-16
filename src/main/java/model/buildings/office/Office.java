@@ -1,6 +1,8 @@
 package model.buildings.office;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import model.buildings.Space;
 import model.exeptions.InvalidRoomsCountException;
@@ -8,6 +10,8 @@ import model.exeptions.InvalidSpaceAreaException;
 
 @EqualsAndHashCode
 @ToString
+@Getter
+@Setter
 public class Office implements Space {
     private static final int DEFAULT_SQUARE = 250;
     private static final int DEFAULT_ROOMS = 1;
@@ -29,21 +33,5 @@ public class Office implements Space {
 
     public Office() {
         this(DEFAULT_SQUARE, DEFAULT_ROOMS);
-    }
-
-    public double getSpace() {
-        return space;
-    }
-
-    public void setSpace(double space) {
-        this.space = space;
-    }
-
-    public int getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(int rooms) {
-        this.rooms = rooms;
     }
 }

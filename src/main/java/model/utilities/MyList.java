@@ -26,9 +26,12 @@ public class MyList<T> implements Iterable<T> {
     }
 
     public void add(int index, T t) {
-        Node tmp = getNodeBefore(index);
-        tmp.next = new Node(tmp.next, t);
-        ++size;
+        if (index == size) addToTail(t);
+        else {
+            Node tmp = getNodeBefore(index);
+            tmp.next = new Node(tmp.next, t);
+            ++size;
+        }
     }
 
     public void remove(int index) {
@@ -57,19 +60,19 @@ public class MyList<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            Node node = head.next;
+        return new Iterator<>() {
+            Node node = head;
+            int cur = 0;
 
             @Override
             public boolean hasNext() {
-                return node != head.next;
+                return cur != size;
             }
 
             @Override
             public T next() {
-                Node now = node;
-                node = node.next;
-                return now.t;
+                ++cur;
+                return (node = node.next).t;
             }
         };
     }

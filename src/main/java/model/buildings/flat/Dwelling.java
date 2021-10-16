@@ -5,6 +5,8 @@ import model.buildings.Floor;
 import model.buildings.Space;
 import model.exeptions.FloorIndexOutOfBoundsException;
 import model.exeptions.InvalidRoomsCountException;
+import model.utilities.IterableArray;
+import model.utilities.SomeBuildingUtilities;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
@@ -13,6 +15,7 @@ public class Dwelling implements Building {
 
     public Dwelling(int floorsCount, int[] flatsCount) {
         if (floorsCount != flatsCount.length) throw new InvalidRoomsCountException();
+
         floors = new DwellingFloor[floorsCount];
 
         int i = 0;
@@ -25,127 +28,46 @@ public class Dwelling implements Building {
         floors = dwellingFloors;
     }
 
+    @Override
     public int size() {
         return floors.length;
     }
 
+    @Override
     public int flatsCount() {
-        int sum = 0;
-
-        for (Floor floor : floors)
-            sum += floor.size();
-
-        return sum;
+        return SomeBuildingUtilities.flatsCount(IterableArray.create(floors));
     }
 
+    @Override
     public int sumRoomsCount() {
-        int sum = 0;
-
-        for (Floor floor : floors)
-            sum += floor.sumRoomCount();
-
-        return sum;
+        return SomeBuildingUtilities.sumRoomsCount(IterableArray.create(floors));
     }
+
+    @Override
 
     public int sumSquare() {
-        int sum = 0;
-
-        for (Floor floor : floors)
-            sum += floor.sumSquare();
-
-        return sum;
+        return SomeBuildingUtilities.sumSquare(IterableArray.create(floors));
     }
 
+    @Override
     public Floor[] getAllFloors() {
-        return floors;
+        return SomeBuildingUtilities.getAllFloors(IterableArray.create(floors), size());
     }
 
+    @Override
     public Floor getFloor(int number) {
         checkIfNumberIsValid(number, size() - 1, FloorIndexOutOfBoundsException.class);
         return floors[number];
     }
 
+    @Override
     public void setFloor(int number, Floor floor) {
         checkIfNumberIsValid(number, size() - 1, FloorIndexOutOfBoundsException.class);
         floors[number] = floor;
     }
 
-    public Space getSpace(int number) {
-        checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
-        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
-
-        return floorAndNumber.floor.getFlat(floorAndNumber.number);
-    }
-
-    public void setSpace(int number, Space space) {
-        checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
-        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
-
-        floorAndNumber.floor.setFlat(floorAndNumber.number, space);
-    }
-
-    public void addSpace(int number, Space space) {
-        checkIfNumberIsValid(number, sumRoomsCount(), FloorIndexOutOfBoundsException.class);
-        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
-
-        floorAndNumber.floor.addFlat(floorAndNumber.number, space);
-    }
-
-    public void removeSpace(int number) {
-        checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
-        Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
-
-        floorAndNumber.floor.removeFlat(floorAndNumber.number);
-    }
-
-    private Entity<Floor, Integer> countFloorAndFlat(int number) {
-        int i = 0;
-        int j = 0;
-        while ((i + getFloor(j++).size()) <= number) {
-            i += getFloor(j - 1).size();
-        }
-
-        return new Entity<>(getFloor(j - 1), number - i);
-    }
-
-    //todo: массив Space
-    public double[] getSquares() {
-        double[] fl = new double[flatsCount()];
-
-        int i = 0;
-        for (Floor d : floors)
-            for (Space f : d.flats())
-                fl[i++] = f.getSpace();
-
-        sort(fl);
-
-        return fl;
-    }
-
-    private void sort(double[] fl) {
-        boolean isSorted = false;
-        double buf;
-        while (!isSorted) {
-            isSorted = true;
-            for (int i = 0; i < fl.length - 1; i++) {
-                if (fl[i] < fl[i + 1]) {
-                    isSorted = false;
-
-                    buf = fl[i];
-                    fl[i] = fl[i + 1];
-                    fl[i + 1] = buf;
-                }
-            }
-        }
-    }
-
-    private class Entity<_Floor, _Number> {
-        _Floor floor;
-        _Number number;
-
-        public Entity(_Floor floor, _Number number) {
-            this.floor = floor;
-            this.number = number;
-        }
+    @Override
+    public Space[] getSquares() {
+        return SomeBuildingUtilities.getSquares(IterableArray.create(floors));
     }
 }

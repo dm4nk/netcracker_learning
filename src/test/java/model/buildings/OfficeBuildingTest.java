@@ -30,8 +30,8 @@ public class OfficeBuildingTest extends TestCase {
 
         OfficeBuilding officeBuilding = new OfficeBuilding(new OfficeFloor[]{floor1, floor2, floor3});
 
-        double[] array = officeBuilding.getSquares();
+        Space[] array = officeBuilding.getSquares();
 
-        Assert.assertTrue(IntStream.range(0, array.length - 1).allMatch(i -> array[i + 1] <= array[i]));
+        Assert.assertTrue(IntStream.range(0, array.length - 1).allMatch(i -> array[i + 1].getSpace() <= array[i].getSpace()));
     }
 }

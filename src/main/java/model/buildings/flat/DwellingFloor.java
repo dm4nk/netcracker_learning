@@ -8,28 +8,28 @@ import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
 
 public class DwellingFloor implements Floor {
-    private Space[] flats;
+    private Space[] spaces;
 
-    public DwellingFloor(Flat[] flats) {
-        this.flats = flats;
+    public DwellingFloor(Space[] spaces) {
+        this.spaces = spaces;
     }
 
     public DwellingFloor(int flatsCount) {
-        flats = new Flat[flatsCount];
+        spaces = new Flat[flatsCount];
 
         for (int i = 0; i < flatsCount; ++i) {
-            flats[i] = new Flat();
+            spaces[i] = new Flat();
         }
     }
 
     public int size() {
-        return flats.length;
+        return spaces.length;
     }
 
     public int sumSquare() {
         int sum = 0;
 
-        for (Space f : flats) {
+        for (Space f : spaces) {
             sum += f.getSpace();
         }
         return sum;
@@ -38,49 +38,49 @@ public class DwellingFloor implements Floor {
     public int sumRoomCount() {
         int sum = 0;
 
-        for (Space f : flats) {
+        for (Space f : spaces) {
             sum += f.getRooms();
         }
         return sum;
     }
 
     public Space[] flats() {
-        return flats;
+        return spaces;
     }
 
     public Space getFlat(int number) {
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
-        return flats[number];
+        return spaces[number];
     }
 
     public void setFlat(int number, Space flat) {
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
-        flats[number] = flat;
+        spaces[number] = flat;
     }
 
     public void addFlat(int number, Space flat) {
         checkIfNumberIsValid(number, size(), SpaceIndexOutOfBoundsException.class);
-        Space[] newFlats = new Flat[size() + 1];
+        Space[] newFlats = new Space[size() + 1];
 
-        arrayCopy(flats, 0, newFlats, 0, number);
+        arrayCopy(spaces, 0, newFlats, 0, number);
 
         newFlats[number] = flat;
 
-        arrayCopy(flats, number, newFlats, number + 1, size() - number);
+        arrayCopy(spaces, number, newFlats, number + 1, size() - number);
 
-        flats = newFlats;
+        spaces = newFlats;
     }
 
     public void removeFlat(int number) {
         if (size() <= 1) throw new IllegalStateException();
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
 
-        Flat[] newFlats = new Flat[size() - 1];
+        Space[] newFlats = new Space[size() - 1];
 
-        arrayCopy(flats, 0, newFlats, 0, number);
-        arrayCopy(flats, number + 1, newFlats, number, size() - number - 1);
+        arrayCopy(spaces, 0, newFlats, 0, number);
+        arrayCopy(spaces, number + 1, newFlats, number, size() - number - 1);
 
-        flats = newFlats;
+        spaces = newFlats;
     }
 
     public Space getBestSpace() {

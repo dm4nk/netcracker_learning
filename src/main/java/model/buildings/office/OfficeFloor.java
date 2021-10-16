@@ -9,39 +9,40 @@ import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
 
 public class OfficeFloor implements Floor {
-    private final MyList<Space> offices;
+    private final MyList<Space> spaces;
 
-    public OfficeFloor(Space[] offices) {
-        this.offices = new MyList<>();
-        for (Space o : offices)
-            this.offices.addToTail(o);
+    public OfficeFloor(Space[] spaces) {
+        this.spaces = new MyList<>();
+        for (Space o : spaces)
+            this.spaces.addToTail(o);
     }
 
     public OfficeFloor(int flatsCount) {
-        this.offices = new MyList<>();
+        this.spaces = new MyList<>();
         for (int i = 0; i < flatsCount; ++i)
-            this.offices.addToTail(new Office());
+            this.spaces.addToTail(new Office());
     }
 
     public int size() {
-        return offices.size();
+        return spaces.size();
     }
 
     public int sumSquare() {
         int sum = 0;
 
-        for (Space f : offices) {
+        for (Space f : spaces)
             sum += f.getSpace();
-        }
+
         return sum;
     }
 
     public int sumRoomCount() {
         int sum = 0;
 
-        for (Space f : offices) {
+        for (Space f : spaces)
             sum += f.getRooms();
-        }
+
+
         return sum;
     }
 
@@ -49,8 +50,8 @@ public class OfficeFloor implements Floor {
         Space[] offices = new Space[size()];
 
         int i = 0;
-        for (Space f : this.offices) {
-            offices[i++] =  f;
+        for (Space f : this.spaces) {
+            offices[i++] = f;
         }
 
         return offices;
@@ -58,25 +59,25 @@ public class OfficeFloor implements Floor {
 
     public Space getFlat(int number) {
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
-        return offices.get(number);
+        return spaces.get(number);
     }
 
     public void setFlat(int number, Space office) {
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
-        offices.set(number, office);
+        spaces.set(number, office);
     }
 
     public void addFlat(int number, Space office) {
         checkIfNumberIsValid(number, size(), SpaceIndexOutOfBoundsException.class);
 
-        offices.add(number, office);
+        spaces.add(number, office);
     }
 
     public void removeFlat(int number) {
         if (size() <= 1) throw new IllegalStateException();
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
 
-        offices.remove(number);
+        spaces.remove(number);
     }
 
     public Space getBestSpace() {
