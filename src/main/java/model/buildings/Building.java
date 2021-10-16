@@ -24,28 +24,28 @@ public interface Building {
         checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
         Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
-        return floorAndNumber.floor.getFlat(floorAndNumber.number);
+        return floorAndNumber.floor.getSpace(floorAndNumber.number);
     }
 
     default void setSpace(int number, Space space) {
         checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
         Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
-        floorAndNumber.floor.setFlat(floorAndNumber.number, space);
+        floorAndNumber.floor.setSpace(floorAndNumber.number, space);
     }
 
     default void addSpace(int number, Space space) {
         checkIfNumberIsValid(number, sumRoomsCount(), FloorIndexOutOfBoundsException.class);
         Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
-        floorAndNumber.floor.addFlat(floorAndNumber.number, space);
+        floorAndNumber.floor.addSpace(floorAndNumber.number, space);
     }
 
     default void removeSpace(int number) {
         checkIfNumberIsValid(number, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
         Entity<Floor, Integer> floorAndNumber = countFloorAndFlat(number);
 
-        floorAndNumber.floor.removeFlat(floorAndNumber.number);
+        floorAndNumber.floor.removeSpace(floorAndNumber.number);
     }
 
     private Entity<Floor, Integer> countFloorAndFlat(int number) {

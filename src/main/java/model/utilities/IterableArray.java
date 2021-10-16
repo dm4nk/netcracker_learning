@@ -1,23 +1,17 @@
 package model.utilities;
 
-import model.buildings.Floor;
-
 import java.util.Iterator;
 
 
-public final class IterableArray implements Iterable<Floor> {
-    private final Floor[] array;
+public final class IterableArray<T> implements Iterable<T> {
+    private final T[] array;
 
-    private IterableArray(Floor[] array) {
+    public IterableArray(T[] array) {
         this.array = array;
     }
 
-    public static IterableArray create(Floor[] array) {
-        return new IterableArray(array);
-    }
-
     @Override
-    public Iterator<Floor> iterator() {
+    public Iterator<T> iterator() {
         return new Iterator<>() {
             int cur = 0;
 
@@ -27,10 +21,9 @@ public final class IterableArray implements Iterable<Floor> {
             }
 
             @Override
-            public Floor next() {
+            public T next() {
                 return array[cur++];
             }
         };
     }
-
 }

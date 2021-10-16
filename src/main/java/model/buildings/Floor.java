@@ -1,5 +1,7 @@
 package model.buildings;
 
+import java.util.Iterator;
+
 public interface Floor {
     int size();
 
@@ -7,15 +9,17 @@ public interface Floor {
 
     int sumRoomCount();
 
-    Space[] flats();
+    Space[] spaces();
 
-    Space getFlat(int number);
+    Space getSpace(int number);
 
-    void setFlat(int number, Space flat);
+    void setSpace(int number, Space flat);
 
-    void addFlat(int number, Space flat);
+    void addSpace(int number, Space flat);
 
-    void removeFlat(int number);
+    void removeSpace(int number);
 
     Space getBestSpace();
+
+    Iterator<Space> iterator();
 }

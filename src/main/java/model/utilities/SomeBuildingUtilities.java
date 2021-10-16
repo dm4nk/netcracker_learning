@@ -46,7 +46,7 @@ public abstract class SomeBuildingUtilities {
 
         int i = 0;
         for (Floor d : collection)
-            for (Space f : d.flats())
+            for (Space f : d.spaces())
                 fl[i++] = f;
 
         SomeBuildingUtilities.sort(fl);

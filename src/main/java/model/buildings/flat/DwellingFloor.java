@@ -1,12 +1,18 @@
 package model.buildings.flat;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import model.buildings.Floor;
 import model.buildings.Space;
 import model.exeptions.SpaceIndexOutOfBoundsException;
+import model.utilities.IterableArray;
+
+import java.util.Iterator;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
-
+@EqualsAndHashCode
+@ToString
 public class DwellingFloor implements Floor {
     private Space[] spaces;
 
@@ -44,21 +50,21 @@ public class DwellingFloor implements Floor {
         return sum;
     }
 
-    public Space[] flats() {
+    public Space[] spaces() {
         return spaces;
     }
 
-    public Space getFlat(int number) {
+    public Space getSpace(int number) {
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
         return spaces[number];
     }
 
-    public void setFlat(int number, Space flat) {
+    public void setSpace(int number, Space flat) {
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
         spaces[number] = flat;
     }
 
-    public void addFlat(int number, Space flat) {
+    public void addSpace(int number, Space flat) {
         checkIfNumberIsValid(number, size(), SpaceIndexOutOfBoundsException.class);
         Space[] newFlats = new Space[size() + 1];
 
@@ -71,7 +77,7 @@ public class DwellingFloor implements Floor {
         spaces = newFlats;
     }
 
-    public void removeFlat(int number) {
+    public void removeSpace(int number) {
         if (size() <= 1) throw new IllegalStateException();
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
 
@@ -84,10 +90,10 @@ public class DwellingFloor implements Floor {
     }
 
     public Space getBestSpace() {
-        Space bestSpaceFlat = getFlat(0);
+        Space bestSpaceFlat = getSpace(0);
         for (int i = 1; i < size(); ++i) {
-            if (bestSpaceFlat.getSpace() < getFlat(i).getSpace())
-                bestSpaceFlat = getFlat(i);
+            if (bestSpaceFlat.getSpace() < getSpace(i).getSpace())
+                bestSpaceFlat = getSpace(i);
         }
         return bestSpaceFlat;
     }
@@ -98,5 +104,10 @@ public class DwellingFloor implements Floor {
 
         for (int i = 0; i < length; ++i)
             destination[destinationPosition + i] = source[sourcePosition + i];
+    }
+
+    @Override
+    public Iterator<Space> iterator() {
+        return new IterableArray<>(spaces).iterator();
     }
 }

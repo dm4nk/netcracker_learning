@@ -1,5 +1,6 @@
 package model.buildings.flat;
 
+import lombok.EqualsAndHashCode;
 import model.buildings.Building;
 import model.buildings.Floor;
 import model.buildings.Space;
@@ -10,6 +11,7 @@ import model.utilities.SomeBuildingUtilities;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
+@EqualsAndHashCode
 public class Dwelling implements Building {
     private final Floor[] floors;
 
@@ -35,23 +37,23 @@ public class Dwelling implements Building {
 
     @Override
     public int flatsCount() {
-        return SomeBuildingUtilities.flatsCount(IterableArray.create(floors));
+        return SomeBuildingUtilities.flatsCount(new IterableArray<>(floors));
     }
 
     @Override
     public int sumRoomsCount() {
-        return SomeBuildingUtilities.sumRoomsCount(IterableArray.create(floors));
+        return SomeBuildingUtilities.sumRoomsCount(new IterableArray<>(floors));
     }
 
     @Override
 
     public int sumSquare() {
-        return SomeBuildingUtilities.sumSquare(IterableArray.create(floors));
+        return SomeBuildingUtilities.sumSquare(new IterableArray<>(floors));
     }
 
     @Override
     public Floor[] getAllFloors() {
-        return SomeBuildingUtilities.getAllFloors(IterableArray.create(floors), size());
+        return SomeBuildingUtilities.getAllFloors(new IterableArray<>(floors), size());
     }
 
     @Override
@@ -68,6 +70,20 @@ public class Dwelling implements Building {
 
     @Override
     public Space[] getSquares() {
-        return SomeBuildingUtilities.getSquares(IterableArray.create(floors));
+        return SomeBuildingUtilities.getSquares(new IterableArray<>(floors));
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder floors = new StringBuilder();
+
+        for (Floor f : this.floors) {
+            floors.append(f.size()).append("\n");
+            for (Space s : f.spaces())
+                floors.append(s.getRooms()).append("\n").append(s.getSpace()).append("\n");
+        }
+
+        return size() + "\n" + floors.toString();
     }
 }

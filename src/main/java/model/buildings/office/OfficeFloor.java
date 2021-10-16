@@ -1,13 +1,18 @@
 package model.buildings.office;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import model.buildings.Floor;
 import model.buildings.Space;
 import model.exeptions.SpaceIndexOutOfBoundsException;
 import model.utilities.MyList;
 
+import java.util.Iterator;
+
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
-
+@EqualsAndHashCode
+@ToString
 public class OfficeFloor implements Floor {
     private final MyList<Space> spaces;
 
@@ -46,7 +51,7 @@ public class OfficeFloor implements Floor {
         return sum;
     }
 
-    public Space[] flats() {
+    public Space[] spaces() {
         Space[] offices = new Space[size()];
 
         int i = 0;
@@ -57,23 +62,23 @@ public class OfficeFloor implements Floor {
         return offices;
     }
 
-    public Space getFlat(int number) {
+    public Space getSpace(int number) {
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
         return spaces.get(number);
     }
 
-    public void setFlat(int number, Space office) {
+    public void setSpace(int number, Space office) {
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
         spaces.set(number, office);
     }
 
-    public void addFlat(int number, Space office) {
+    public void addSpace(int number, Space office) {
         checkIfNumberIsValid(number, size(), SpaceIndexOutOfBoundsException.class);
 
         spaces.add(number, office);
     }
 
-    public void removeFlat(int number) {
+    public void removeSpace(int number) {
         if (size() <= 1) throw new IllegalStateException();
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
 
@@ -81,11 +86,16 @@ public class OfficeFloor implements Floor {
     }
 
     public Space getBestSpace() {
-        Space bestSpaceOffice = getFlat(0);
+        Space bestSpaceOffice = getSpace(0);
         for (int i = 1; i < size(); ++i) {
-            if (bestSpaceOffice.getSpace() < getFlat(i).getSpace())
-                bestSpaceOffice = getFlat(i);
+            if (bestSpaceOffice.getSpace() < getSpace(i).getSpace())
+                bestSpaceOffice = getSpace(i);
         }
         return bestSpaceOffice;
+    }
+
+    @Override
+    public Iterator<Space> iterator() {
+        return spaces.iterator();
     }
 }

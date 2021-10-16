@@ -1,5 +1,6 @@
 package model.buildings.office;
 
+import lombok.EqualsAndHashCode;
 import model.buildings.Building;
 import model.buildings.Floor;
 import model.buildings.Space;
@@ -10,6 +11,7 @@ import model.utilities.SomeBuildingUtilities;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
+@EqualsAndHashCode
 public class OfficeBuilding implements Building {
     private final MyList<Floor> floors;
 
@@ -72,5 +74,19 @@ public class OfficeBuilding implements Building {
     @Override
     public Space[] getSquares() {
         return SomeBuildingUtilities.getSquares(floors);
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder floors = new StringBuilder();
+
+        for (Floor f : this.floors) {
+            floors.append(f.size()).append("\n");
+            for (Space s : f.spaces())
+                floors.append(s.getRooms()).append("\n").append(s.getSpace()).append("\n");
+        }
+
+        return size() + "\n" + floors.toString();
     }
 }
