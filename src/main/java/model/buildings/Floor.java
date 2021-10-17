@@ -1,8 +1,11 @@
 package model.buildings;
 
+import lombok.NonNull;
+
+import java.io.Serializable;
 import java.util.Iterator;
 
-public interface Floor {
+public interface Floor extends Serializable {
     int size();
 
     int sumSquare();
@@ -13,9 +16,9 @@ public interface Floor {
 
     Space getSpace(int number);
 
-    void setSpace(int number, Space flat);
+    void setSpace(int number, @NonNull Space flat);
 
-    void addSpace(int number, Space flat);
+    void addSpace(int number, @NonNull Space flat);
 
     void removeSpace(int number);
 

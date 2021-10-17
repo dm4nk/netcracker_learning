@@ -1,6 +1,6 @@
 package model.buildings.office;
 
-import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import model.buildings.Building;
 import model.buildings.Floor;
 import model.buildings.Space;
@@ -9,13 +9,17 @@ import model.exeptions.InvalidRoomsCountException;
 import model.utilities.MyList;
 import model.utilities.SomeBuildingUtilities;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
-@EqualsAndHashCode
-public class OfficeBuilding implements Building {
+public class OfficeBuilding implements Building, Serializable {
+    private static final int SUPER_SECRET_HASH_CODE_VARIABLE = 1337;
+    @NonNull
     private final MyList<Floor> floors;
 
-    public OfficeBuilding(int floorsCount, int[] flatsCount) {
+    public OfficeBuilding(int floorsCount, @NonNull int[] flatsCount) {
         if (floorsCount != flatsCount.length) throw new InvalidRoomsCountException();
 
         floors = new MyList<>();
@@ -25,7 +29,7 @@ public class OfficeBuilding implements Building {
         }
     }
 
-    public OfficeBuilding(Floor[] officeFloors) {
+    public OfficeBuilding(@NonNull Floor[] officeFloors) {
 
         floors = new MyList<>();
 
@@ -66,7 +70,7 @@ public class OfficeBuilding implements Building {
     }
 
     @Override
-    public void setFloor(int number, Floor floor) {
+    public void setFloor(int number, @NonNull Floor floor) {
         checkIfNumberIsValid(number, size() - 1, FloorIndexOutOfBoundsException.class);
         floors.set(number, floor);
     }
@@ -88,5 +92,18 @@ public class OfficeBuilding implements Building {
         }
 
         return size() + "\n" + floors.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OfficeBuilding)) return false;
+        OfficeBuilding that = (OfficeBuilding) o;
+        return floors.equals(that.floors);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(SUPER_SECRET_HASH_CODE_VARIABLE, floors);
     }
 }

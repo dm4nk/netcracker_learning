@@ -6,7 +6,7 @@ import model.buildings.office.Office;
 public class MyListTest extends TestCase {
 
     public void testAddToTail() {
-        MyList<Office> list = new MyList();
+        MyList<Office> list = new MyList<>();
         Office office1 = new Office();
         Office office2 = new Office(1, 2);
         Office office3 = new Office(3, 4);
@@ -31,7 +31,7 @@ public class MyListTest extends TestCase {
     }
 
     public void testAdd() {
-        MyList<Office> list = new MyList();
+        MyList<Office> list = new MyList<>();
         Office office1 = new Office();
         Office office2 = new Office(1, 2);
         Office office3 = new Office(3, 4);
@@ -54,7 +54,7 @@ public class MyListTest extends TestCase {
     }
 
     public void testRemove() {
-        MyList<Office> list = new MyList();
+        MyList<Office> list = new MyList<>();
         Office office1 = new Office(1, 1);
         Office office2 = new Office(2, 2);
         Office office3 = new Office(3, 3);

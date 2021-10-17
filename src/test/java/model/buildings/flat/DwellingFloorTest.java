@@ -1,10 +1,10 @@
-package model.buildings;
+package model.buildings.flat;
 
 import junit.framework.TestCase;
-import model.buildings.flat.DwellingFloor;
 import model.buildings.office.Office;
 import model.exeptions.SpaceIndexOutOfBoundsException;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThrows;
 
 public class DwellingFloorTest extends TestCase {
@@ -40,5 +40,14 @@ public class DwellingFloorTest extends TestCase {
         assertEquals(new Office(3, 3), dwellingFloor.getSpace(0));
 
         assertThrows(IllegalStateException.class, () -> dwellingFloor.removeSpace(0));
+    }
+
+    public void testTestEquals() {
+        DwellingFloor floor1 = new DwellingFloor(new Office[]{new Office(1, 1)});
+        DwellingFloor floor2 = new DwellingFloor(new Office[]{new Office(1, 1)});
+        DwellingFloor floor3 = new DwellingFloor(new Office[]{new Office(2, 1), new Office(2, 2)});
+
+        assertEquals(floor1, floor2);
+        assertNotEquals(floor1, floor3);
     }
 }

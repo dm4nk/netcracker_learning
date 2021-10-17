@@ -1,5 +1,7 @@
 package model.utilities;
 
+import lombok.NonNull;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -10,7 +12,7 @@ public abstract class IndexChecker {
     /**
      * number < 0 || number > border
      */
-    public static <T extends IndexOutOfBoundsException> void checkIfNumberIsValid(int number, int border, Class<T> c) throws IndexOutOfBoundsException {
+    public static <T extends IndexOutOfBoundsException> void checkIfNumberIsValid(int number, int border, @NonNull Class<T> c) throws IndexOutOfBoundsException {
         try {
             if (number < 0 || number > border) {
                 Constructor<?> constructor = c.getConstructor(String.class);

@@ -1,19 +1,22 @@
 package model.buildings.flat;
 
-import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import lombok.ToString;
 import model.buildings.Floor;
 import model.buildings.Space;
 import model.exeptions.SpaceIndexOutOfBoundsException;
 import model.utilities.IterableArray;
 
+import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.stream.IntStream;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
-@EqualsAndHashCode
 @ToString
-public class DwellingFloor implements Floor {
+public class DwellingFloor implements Floor, Serializable {
+    @NonNull
     private Space[] spaces;
 
     public DwellingFloor(Space[] spaces) {
@@ -59,12 +62,12 @@ public class DwellingFloor implements Floor {
         return spaces[number];
     }
 
-    public void setSpace(int number, Space flat) {
+    public void setSpace(int number, @NonNull Space flat) {
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
         spaces[number] = flat;
     }
 
-    public void addSpace(int number, Space flat) {
+    public void addSpace(int number, @NonNull Space flat) {
         checkIfNumberIsValid(number, size(), SpaceIndexOutOfBoundsException.class);
         Space[] newFlats = new Space[size() + 1];
 
@@ -109,5 +112,18 @@ public class DwellingFloor implements Floor {
     @Override
     public Iterator<Space> iterator() {
         return new IterableArray<>(spaces).iterator();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DwellingFloor)) return false;
+        DwellingFloor that = (DwellingFloor) o;
+        return spaces.length == that.spaces.length && IntStream.range(0, spaces.length - 1).allMatch(i -> spaces[i].equals(that.spaces[i]));
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(spaces);
     }
 }

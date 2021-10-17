@@ -1,9 +1,12 @@
 package model.utilities;
 
+import lombok.NonNull;
+
 import java.util.Iterator;
 
 
 public final class IterableArray<T> implements Iterable<T> {
+    @NonNull
     private final T[] array;
 
     public IterableArray(T[] array) {

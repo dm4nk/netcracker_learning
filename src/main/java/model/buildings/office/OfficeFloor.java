@@ -1,22 +1,25 @@
 package model.buildings.office;
 
-import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import lombok.ToString;
 import model.buildings.Floor;
 import model.buildings.Space;
 import model.exeptions.SpaceIndexOutOfBoundsException;
 import model.utilities.MyList;
 
+import java.io.Serializable;
 import java.util.Iterator;
+import java.util.Objects;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
-@EqualsAndHashCode
 @ToString
-public class OfficeFloor implements Floor {
+public class OfficeFloor implements Floor, Serializable {
+    private static final int SUPER_SECRET_HASH_CODE_VARIABLE = 1337;
+    @NonNull
     private final MyList<Space> spaces;
 
-    public OfficeFloor(Space[] spaces) {
+    public OfficeFloor(@NonNull Space[] spaces) {
         this.spaces = new MyList<>();
         for (Space o : spaces)
             this.spaces.addToTail(o);
@@ -67,12 +70,12 @@ public class OfficeFloor implements Floor {
         return spaces.get(number);
     }
 
-    public void setSpace(int number, Space office) {
+    public void setSpace(int number, @NonNull Space office) {
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
         spaces.set(number, office);
     }
 
-    public void addSpace(int number, Space office) {
+    public void addSpace(int number, @NonNull Space office) {
         checkIfNumberIsValid(number, size(), SpaceIndexOutOfBoundsException.class);
 
         spaces.add(number, office);
@@ -97,5 +100,18 @@ public class OfficeFloor implements Floor {
     @Override
     public Iterator<Space> iterator() {
         return spaces.iterator();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OfficeFloor)) return false;
+        OfficeFloor that = (OfficeFloor) o;
+        return spaces.equals(that.spaces);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(SUPER_SECRET_HASH_CODE_VARIABLE, spaces);
     }
 }

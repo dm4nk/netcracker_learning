@@ -1,6 +1,7 @@
 package model.utilities;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 public class MyList<T> implements Iterable<T> {
     private final Node head = new Node(null, null);
@@ -75,6 +76,26 @@ public class MyList<T> implements Iterable<T> {
                 return (node = node.next).t;
             }
         };
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MyList)) return false;
+        MyList<?> myList = (MyList<?>) o;
+        if (size != myList.size) return false;
+
+        Iterator<?> iterator1 = this.iterator(), iterator2 = myList.iterator();
+
+        while (iterator1.hasNext() && iterator2.hasNext())
+            if (!iterator1.next().equals(iterator2.next())) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(head, size);
     }
 
     private class Node {

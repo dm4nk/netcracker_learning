@@ -1,10 +1,11 @@
 package model.utilities;
 
+import lombok.NonNull;
 import model.buildings.Floor;
 import model.buildings.Space;
 
 public abstract class SomeBuildingUtilities {
-    public static <T extends Iterable<Floor>> int flatsCount(T collection) {
+    public static <T extends Iterable<Floor>> int flatsCount(@NonNull T collection) {
         int sum = 0;
 
         for (Floor floor : collection)
@@ -13,7 +14,7 @@ public abstract class SomeBuildingUtilities {
         return sum;
     }
 
-    public static <T extends Iterable<Floor>> int sumRoomsCount(T collection) {
+    public static <T extends Iterable<Floor>> int sumRoomsCount(@NonNull T collection) {
         int sum = 0;
 
         for (Floor floor : collection)
@@ -22,7 +23,7 @@ public abstract class SomeBuildingUtilities {
         return sum;
     }
 
-    public static <T extends Iterable<Floor>> int sumSquare(T collection) {
+    public static <T extends Iterable<Floor>> int sumSquare(@NonNull T collection) {
         int sum = 0;
 
         for (Floor floor : collection)
@@ -31,7 +32,7 @@ public abstract class SomeBuildingUtilities {
         return sum;
     }
 
-    public static <T extends Iterable<Floor>> Floor[] getAllFloors(T collection, int size) {
+    public static <T extends Iterable<Floor>> Floor[] getAllFloors(@NonNull T collection, int size) {
         Floor[] floors = new Floor[size];
 
         int i = 0;
@@ -41,7 +42,7 @@ public abstract class SomeBuildingUtilities {
         return floors;
     }
 
-    public static <T extends Iterable<Floor>> Space[] getSquares(T collection) {
+    public static <T extends Iterable<Floor>> Space[] getSquares(@NonNull T collection) {
         Space[] fl = new Space[flatsCount(collection)];
 
         int i = 0;

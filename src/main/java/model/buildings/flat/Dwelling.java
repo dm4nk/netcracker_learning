@@ -1,6 +1,6 @@
 package model.buildings.flat;
 
-import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import model.buildings.Building;
 import model.buildings.Floor;
 import model.buildings.Space;
@@ -9,13 +9,17 @@ import model.exeptions.InvalidRoomsCountException;
 import model.utilities.IterableArray;
 import model.utilities.SomeBuildingUtilities;
 
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
-@EqualsAndHashCode
-public class Dwelling implements Building {
+public class Dwelling implements Building, Serializable {
+    @NonNull
     private final Floor[] floors;
 
-    public Dwelling(int floorsCount, int[] flatsCount) {
+    public Dwelling(int floorsCount, @NonNull int[] flatsCount) {
         if (floorsCount != flatsCount.length) throw new InvalidRoomsCountException();
 
         floors = new DwellingFloor[floorsCount];
@@ -63,7 +67,7 @@ public class Dwelling implements Building {
     }
 
     @Override
-    public void setFloor(int number, Floor floor) {
+    public void setFloor(int number, @NonNull Floor floor) {
         checkIfNumberIsValid(number, size() - 1, FloorIndexOutOfBoundsException.class);
         floors[number] = floor;
     }
@@ -85,5 +89,18 @@ public class Dwelling implements Building {
         }
 
         return size() + "\n" + floors.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Dwelling)) return false;
+        Dwelling dwelling = (Dwelling) o;
+        return floors.length == dwelling.floors.length && IntStream.range(0, floors.length - 1).allMatch(i -> floors[i].equals(dwelling.floors[i]));
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(floors);
     }
 }

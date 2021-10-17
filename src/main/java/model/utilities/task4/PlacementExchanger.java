@@ -1,5 +1,6 @@
 package model.utilities.task4;
 
+import lombok.NonNull;
 import model.buildings.Building;
 import model.buildings.Floor;
 import model.buildings.Space;
@@ -8,15 +9,15 @@ import model.exeptions.InexchangeableSpacesException;
 import model.utilities.IndexChecker;
 
 public abstract class PlacementExchanger {
-    public static boolean canChange(Space first, Space second) {
+    public static boolean canChange(@NonNull Space first, @NonNull Space second) {
         return (first.getSpace() == second.getSpace()) && (first.getRooms() == second.getRooms());
     }
 
-    public static boolean canChange(Floor first, Floor second) {
+    public static boolean canChange(@NonNull Floor first, @NonNull Floor second) {
         return (first.sumSquare() == second.sumSquare()) && (first.sumRoomCount() == second.sumRoomCount());
     }
 
-    public static void exchangeFloorRooms(Floor floor1, int index1, Floor floor2, int index2) throws InexchangeableSpacesException {
+    public static void exchangeFloorRooms(@NonNull Floor floor1, int index1, @NonNull Floor floor2, int index2) throws InexchangeableSpacesException {
         IndexChecker.checkIfNumberIsValid(index1, floor1.size() - 1, IndexOutOfBoundsException.class);
         IndexChecker.checkIfNumberIsValid(index2, floor2.size() - 1, IndexOutOfBoundsException.class);
         if (!canChange(floor1.getSpace(index1), floor2.getSpace(index2))) throw new InexchangeableSpacesException();
@@ -29,7 +30,7 @@ public abstract class PlacementExchanger {
         floor2.setSpace(index2, tmp);
     }
 
-    public static void exchangeBuildingFloors(Building building1, int index1, Building building2, int index2) throws InexchangeableFloorsException {
+    public static void exchangeBuildingFloors(@NonNull Building building1, int index1, @NonNull Building building2, int index2) throws InexchangeableFloorsException {
         IndexChecker.checkIfNumberIsValid(index1, building1.size() - 1, IndexOutOfBoundsException.class);
         IndexChecker.checkIfNumberIsValid(index2, building2.size() - 1, IndexOutOfBoundsException.class);
         if (!canChange(building1.getFloor(index1), building2.getFloor(index2)))
