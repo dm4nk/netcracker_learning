@@ -1,20 +1,18 @@
 package model.buildings.office;
 
 import lombok.NonNull;
-import lombok.ToString;
 import model.buildings.Floor;
 import model.buildings.Space;
 import model.exeptions.SpaceIndexOutOfBoundsException;
 import model.utilities.MyList;
+import model.utilities.SomeBuildingUtilities;
 
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Objects;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
-@ToString
-public class OfficeFloor implements Floor, Serializable {
+public class OfficeFloor implements Floor {
     private static final int SUPER_SECRET_HASH_CODE_VARIABLE = 1337;
     @NonNull
     private final MyList<Space> spaces;
@@ -100,6 +98,11 @@ public class OfficeFloor implements Floor, Serializable {
     @Override
     public Iterator<Space> iterator() {
         return spaces.iterator();
+    }
+
+    @Override
+    public String toString() {
+        return SomeBuildingUtilities.toString("OfficeFloor", spaces, size());
     }
 
     @Override

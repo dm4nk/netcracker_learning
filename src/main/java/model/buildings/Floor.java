@@ -5,7 +5,7 @@ import lombok.NonNull;
 import java.io.Serializable;
 import java.util.Iterator;
 
-public interface Floor extends Serializable {
+public interface Floor extends Serializable, Iterable<Space> {
     int size();
 
     int sumSquare();

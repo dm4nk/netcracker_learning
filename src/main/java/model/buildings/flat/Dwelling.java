@@ -11,6 +11,7 @@ import model.utilities.SomeBuildingUtilities;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.stream.IntStream;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
@@ -30,8 +31,8 @@ public class Dwelling implements Building, Serializable {
         }
     }
 
-    public Dwelling(DwellingFloor[] dwellingFloors) {
-        floors = dwellingFloors;
+    public Dwelling(Floor[] floors) {
+        this.floors = floors;
     }
 
     @Override
@@ -78,17 +79,13 @@ public class Dwelling implements Building, Serializable {
     }
 
     @Override
+    public Iterator<Floor> iterator() {
+        return new IterableArray<>(floors).iterator();
+    }
+
+    @Override
     public String toString() {
-
-        StringBuilder floors = new StringBuilder();
-
-        for (Floor f : this.floors) {
-            floors.append(f.size()).append("\n");
-            for (Space s : f.spaces())
-                floors.append(s.getRooms()).append("\n").append(s.getSpace()).append("\n");
-        }
-
-        return size() + "\n" + floors.toString();
+        return SomeBuildingUtilities.toString("Dwelling", new IterableArray<>(floors), size());
     }
 
     @Override

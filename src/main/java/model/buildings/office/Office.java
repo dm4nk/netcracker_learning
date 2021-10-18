@@ -3,7 +3,6 @@ package model.buildings.office;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.ToString;
 import model.buildings.Space;
 import model.exeptions.InvalidRoomsCountException;
 import model.exeptions.InvalidSpaceAreaException;
@@ -11,7 +10,6 @@ import model.exeptions.InvalidSpaceAreaException;
 import java.io.Serializable;
 import java.util.Objects;
 
-@ToString
 @Getter
 @Setter
 public class Office implements Space, Serializable {
@@ -38,6 +36,14 @@ public class Office implements Space, Serializable {
 
     public Office() {
         this(DEFAULT_SQUARE, DEFAULT_ROOMS);
+    }
+
+    @Override
+    public String toString() {
+        return "Office (" +
+                rooms +
+                ", " + space +
+                ')';
     }
 
     @Override

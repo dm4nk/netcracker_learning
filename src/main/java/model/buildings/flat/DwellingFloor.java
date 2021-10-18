@@ -1,21 +1,19 @@
 package model.buildings.flat;
 
 import lombok.NonNull;
-import lombok.ToString;
 import model.buildings.Floor;
 import model.buildings.Space;
 import model.exeptions.SpaceIndexOutOfBoundsException;
 import model.utilities.IterableArray;
+import model.utilities.SomeBuildingUtilities;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.stream.IntStream;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
-@ToString
-public class DwellingFloor implements Floor, Serializable {
+public class DwellingFloor implements Floor {
     @NonNull
     private Space[] spaces;
 
@@ -112,6 +110,11 @@ public class DwellingFloor implements Floor, Serializable {
     @Override
     public Iterator<Space> iterator() {
         return new IterableArray<>(spaces).iterator();
+    }
+
+    @Override
+    public String toString() {
+        return SomeBuildingUtilities.toString("DwellingFloor", new IterableArray<>(spaces), size());
     }
 
     @Override

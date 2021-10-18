@@ -1,6 +1,9 @@
 package model.buildings.flat;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 import model.buildings.Space;
 import model.exeptions.InvalidRoomsCountException;
 import model.exeptions.InvalidSpaceAreaException;
@@ -8,7 +11,6 @@ import model.exeptions.InvalidSpaceAreaException;
 import java.io.Serializable;
 
 @EqualsAndHashCode
-@ToString
 @Getter
 @Setter
 public class Flat implements Space, Serializable {
@@ -34,5 +36,13 @@ public class Flat implements Space, Serializable {
 
     public Flat() {
         this(DEFAULT_SQUARE, DEFAULT_ROOMS);
+    }
+
+    @Override
+    public String toString() {
+        return "Flat (" +
+                rooms +
+                ", " + space +
+                ')';
     }
 }

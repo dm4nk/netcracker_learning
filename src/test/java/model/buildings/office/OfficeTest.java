@@ -10,8 +10,10 @@ public class OfficeTest extends TestCase {
 
     public void testTestHashCode() {
         Space flat = new Flat(1, 3);
-        Space office = new Office(1, 3);
+        Space office1 = new Office(1, 3);
+        Space office2 = new Office(1, 3);
 
-        assertNotEquals(flat, office);
+        assertEquals(office1.hashCode(), office2.hashCode());
+        assertNotEquals(flat.hashCode(), office1.hashCode());
     }
 }

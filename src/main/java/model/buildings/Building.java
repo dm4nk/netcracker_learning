@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
-public interface Building extends Serializable {
+public interface Building extends Serializable, Iterable<Floor> {
     int size();
 
     int flatsCount();

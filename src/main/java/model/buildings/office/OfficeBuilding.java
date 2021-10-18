@@ -10,6 +10,7 @@ import model.utilities.MyList;
 import model.utilities.SomeBuildingUtilities;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.Objects;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
@@ -29,12 +30,12 @@ public class OfficeBuilding implements Building, Serializable {
         }
     }
 
-    public OfficeBuilding(@NonNull Floor[] officeFloors) {
+    public OfficeBuilding(@NonNull Floor[] floors) {
 
-        floors = new MyList<>();
+        this.floors = new MyList<>();
 
-        for (Floor o : officeFloors)
-            floors.addToTail(o);
+        for (Floor o : floors)
+            this.floors.addToTail(o);
     }
 
     @Override
@@ -81,17 +82,13 @@ public class OfficeBuilding implements Building, Serializable {
     }
 
     @Override
+    public Iterator<Floor> iterator() {
+        return floors.iterator();
+    }
+
+    @Override
     public String toString() {
-
-        StringBuilder floors = new StringBuilder();
-
-        for (Floor f : this.floors) {
-            floors.append(f.size()).append("\n");
-            for (Space s : f.spaces())
-                floors.append(s.getRooms()).append("\n").append(s.getSpace()).append("\n");
-        }
-
-        return size() + "\n" + floors.toString();
+        return SomeBuildingUtilities.toString("OfficeBuilding", floors, size());
     }
 
     @Override
