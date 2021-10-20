@@ -62,4 +62,6 @@ public interface Building extends Serializable, Iterable<Floor> {
     }
 
     Space[] getSquares();
+
+    Object clone();
 }

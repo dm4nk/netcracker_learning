@@ -117,4 +117,9 @@ public class OfficeFloor implements Floor {
     public int hashCode() {
         return Objects.hash(SUPER_SECRET_HASH_CODE_VARIABLE, spaces);
     }
+
+    @Override
+    public Object clone() {
+        return SomeBuildingUtilities.copyForList(spaces);
+    }
 }

@@ -100,4 +100,12 @@ public class Dwelling implements Building, Serializable {
     public int hashCode() {
         return Arrays.hashCode(floors);
     }
+
+    @Override
+    public Object clone() {
+        Floor[] floors = new Floor[size()];
+        for (int i = 0; i < size(); ++i)
+            floors[i] = (Floor) this.floors[i].clone();
+        return floors;
+    }
 }

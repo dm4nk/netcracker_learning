@@ -1,9 +1,10 @@
 package model.utilities;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class MyList<T> implements Iterable<T> {
+public class MyList<T> implements Iterable<T>, Serializable {
     private final Node head = new Node(null, null);
     private int size;
 
@@ -98,7 +99,7 @@ public class MyList<T> implements Iterable<T> {
         return Objects.hash(head, size);
     }
 
-    private class Node {
+    private class Node implements Serializable {
         private T t;
         private Node next;
 
@@ -106,5 +107,14 @@ public class MyList<T> implements Iterable<T> {
             this.next = next;
             this.t = t;
         }
+    }
+
+    public MyList<T> clone() {
+        MyList<T> newList = new MyList<>();
+
+        for (T t : this)
+            newList.addToTail(t);
+
+        return newList;
     }
 }

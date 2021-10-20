@@ -1,11 +1,12 @@
 package model.buildings;
 
 import lombok.NonNull;
+import model.utilities.MyCloneable;
 
 import java.io.Serializable;
 import java.util.Iterator;
 
-public interface Floor extends Serializable, Iterable<Space> {
+public interface Floor extends Serializable, Iterable<Space>, MyCloneable {
     int size();
 
     int sumSquare();
@@ -25,4 +26,6 @@ public interface Floor extends Serializable, Iterable<Space> {
     Space getBestSpace();
 
     Iterator<Space> iterator();
+
+    Object clone();
 }

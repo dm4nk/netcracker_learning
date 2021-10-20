@@ -45,4 +45,9 @@ public class Flat implements Space, Serializable {
                 ", " + space +
                 ')';
     }
+
+    @Override
+    public Object clone() {
+        return new Flat(space, rooms);
+    }
 }

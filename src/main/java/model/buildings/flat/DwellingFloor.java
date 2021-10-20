@@ -129,4 +129,12 @@ public class DwellingFloor implements Floor {
     public int hashCode() {
         return Arrays.hashCode(spaces);
     }
+
+    @Override
+    public Object clone() {
+        Space[] spaces = new Space[size()];
+        for (int i = 0; i < size(); ++i)
+            spaces[i] = (Space) this.spaces[i].clone();
+        return spaces;
+    }
 }

@@ -2,10 +2,13 @@ package model.utilities.task4;
 
 import junit.framework.TestCase;
 import model.buildings.Building;
+import model.buildings.Floor;
 import model.buildings.flat.Dwelling;
 import model.buildings.flat.DwellingFloor;
 import model.buildings.flat.Flat;
 import model.buildings.office.Office;
+import model.buildings.office.OfficeBuilding;
+import model.buildings.office.OfficeFloor;
 
 import java.io.*;
 import java.util.Scanner;
@@ -46,11 +49,11 @@ public class BuildingsTest extends TestCase {
     }
 
     public void testSerializeDeserializeBuilding() throws IOException {
-        DwellingFloor floor1 = new DwellingFloor(new Office[]{new Office(1, 1)});
-        DwellingFloor floor2 = new DwellingFloor(new Office[]{new Office(2, 1), new Office(2, 2)});
-        DwellingFloor floor3 = new DwellingFloor(new Office[]{new Office(3, 1), new Office(3, 2), new Office(3, 3)});
+        Floor floor1 = new OfficeFloor(new Office[]{new Office(1, 1)});
+        Floor floor2 = new DwellingFloor(new Office[]{new Office(2, 1), new Office(2, 2)});
+        Floor floor3 = new DwellingFloor(new Office[]{new Office(3, 1), new Office(3, 2), new Office(3, 3)});
 
-        Dwelling building1 = new Dwelling(new DwellingFloor[]{floor1, floor2, floor3});
+        Building building1 = new OfficeBuilding(new Floor[]{floor1, floor2, floor3});
         Building building2;
 
         File file = new File("src/test/resources/buildingsTestSerializeDeserialize.txt");

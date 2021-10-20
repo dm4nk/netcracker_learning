@@ -103,4 +103,9 @@ public class OfficeBuilding implements Building, Serializable {
     public int hashCode() {
         return Objects.hash(SUPER_SECRET_HASH_CODE_VARIABLE, floors);
     }
+
+    @Override
+    public Object clone() {
+        return SomeBuildingUtilities.copyForList(floors);
+    }
 }

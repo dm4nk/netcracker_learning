@@ -59,4 +59,9 @@ public class Office implements Space, Serializable {
     public int hashCode() {
         return Objects.hash(SUPER_SECRET_HASH_CODE_VARIABLE, getSpace(), getRooms());
     }
+
+    @Override
+    public Object clone() {
+        return new Office(space, rooms);
+    }
 }
