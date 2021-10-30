@@ -33,24 +33,6 @@ public class DwellingFloor implements Floor {
         return spaces.length;
     }
 
-    public int sumSquare() {
-        int sum = 0;
-
-        for (Space f : spaces) {
-            sum += f.getSpace();
-        }
-        return sum;
-    }
-
-    public int sumRoomCount() {
-        int sum = 0;
-
-        for (Space f : spaces) {
-            sum += f.getRooms();
-        }
-        return sum;
-    }
-
     public Space[] spaces() {
         return spaces;
     }
@@ -88,15 +70,6 @@ public class DwellingFloor implements Floor {
         arrayCopy(spaces, number + 1, newFlats, number, size() - number - 1);
 
         spaces = newFlats;
-    }
-
-    public Space getBestSpace() {
-        Space bestSpaceFlat = getSpace(0);
-        for (int i = 1; i < size(); ++i) {
-            if (bestSpaceFlat.getSpace() < getSpace(i).getSpace())
-                bestSpaceFlat = getSpace(i);
-        }
-        return bestSpaceFlat;
     }
 
     private void arrayCopy(Space[] source, int sourcePosition, Space[] destination, int destinationPosition, int length) {

@@ -9,9 +9,19 @@ import java.util.Iterator;
 public interface Floor extends Serializable, Iterable<Space>, MyCloneable, Comparable<Floor> {
     int size();
 
-    int sumSquare();
+    default int sumSquare() {
+        int sum = 0;
+        for (Space f : this)
+            sum += f.getSpace();
+        return sum;
+    }
 
-    int sumRoomCount();
+    default int sumRoomCount() {
+        int sum = 0;
+        for (Space f : this)
+            sum += f.getRooms();
+        return sum;
+    }
 
     Space[] spaces();
 
@@ -23,7 +33,14 @@ public interface Floor extends Serializable, Iterable<Space>, MyCloneable, Compa
 
     void removeSpace(int number);
 
-    Space getBestSpace();//todo: есть предположение, что можно вынести сюда через Iterable<Space>
+    default Space getBestSpace() {
+        Space bestSpaceFlat = getSpace(0);
+        for (Space space : this) {
+            if (bestSpaceFlat.getSpace() < space.getSpace())
+                bestSpaceFlat = space;
+        }
+        return bestSpaceFlat;
+    }
 
     Iterator<Space> iterator();
 

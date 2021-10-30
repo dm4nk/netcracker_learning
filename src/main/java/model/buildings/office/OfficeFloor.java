@@ -33,25 +33,6 @@ public class OfficeFloor implements Floor {
         return spaces.size();
     }
 
-    public int sumSquare() {
-        int sum = 0;
-
-        for (Space f : spaces)
-            sum += f.getSpace();
-
-        return sum;
-    }
-
-    public int sumRoomCount() {
-        int sum = 0;
-
-        for (Space f : spaces)
-            sum += f.getRooms();
-
-
-        return sum;
-    }
-
     public Space[] spaces() {
         Space[] offices = new Space[size()];
 
@@ -84,15 +65,6 @@ public class OfficeFloor implements Floor {
         checkIfNumberIsValid(number, size() - 1, SpaceIndexOutOfBoundsException.class);
 
         spaces.remove(number);
-    }
-
-    public Space getBestSpace() {
-        Space bestSpaceOffice = getSpace(0);
-        for (int i = 1; i < size(); ++i) {
-            if (bestSpaceOffice.getSpace() < getSpace(i).getSpace())
-                bestSpaceOffice = getSpace(i);
-        }
-        return bestSpaceOffice;
     }
 
     @Override
