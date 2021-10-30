@@ -6,7 +6,7 @@ import model.utilities.MyCloneable;
 import java.io.Serializable;
 import java.util.Iterator;
 
-public interface Floor extends Serializable, Iterable<Space>, MyCloneable {
+public interface Floor extends Serializable, Iterable<Space>, MyCloneable, Comparable<Floor> {
     int size();
 
     int sumSquare();
@@ -23,9 +23,14 @@ public interface Floor extends Serializable, Iterable<Space>, MyCloneable {
 
     void removeSpace(int number);
 
-    Space getBestSpace();
+    Space getBestSpace();//todo: есть предположение, что можно вынести сюда через Iterable<Space>
 
     Iterator<Space> iterator();
 
     Object clone();
+
+    @Override
+    default int compareTo(Floor o) {
+        return Integer.compare(size(), o.size());
+    }
 }

@@ -102,7 +102,7 @@ public class OfficeFloor implements Floor {
 
     @Override
     public String toString() {
-        return SomeBuildingUtilities.toString("OfficeFloor", spaces, size());
+        return SomeBuildingUtilities.toString("OfficeFloor (", spaces, size());
     }
 
     @Override

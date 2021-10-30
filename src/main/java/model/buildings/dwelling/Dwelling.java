@@ -1,4 +1,4 @@
-package model.buildings.flat;
+package model.buildings.dwelling;
 
 import lombok.NonNull;
 import model.buildings.Building;
@@ -85,7 +85,7 @@ public class Dwelling implements Building, Serializable {
 
     @Override
     public String toString() {
-        return SomeBuildingUtilities.toString("Dwelling", new IterableArray<>(floors), size());
+        return SomeBuildingUtilities.toString("Dwelling (", new IterableArray<>(floors), size());
     }
 
     @Override
@@ -106,6 +106,6 @@ public class Dwelling implements Building, Serializable {
         Floor[] floors = new Floor[size()];
         for (int i = 0; i < size(); ++i)
             floors[i] = (Floor) this.floors[i].clone();
-        return floors;
+        return new Dwelling(floors);
     }
 }

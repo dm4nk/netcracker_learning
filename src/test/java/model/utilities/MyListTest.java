@@ -1,15 +1,17 @@
 package model.utilities;
 
-import junit.framework.TestCase;
 import model.buildings.office.Office;
+import org.junit.jupiter.api.Test;
 
-public class MyListTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+public class MyListTest {
+    @Test
     public void testAddToTail() {
         MyList<Office> list = new MyList<>();
         Office office1 = new Office();
-        Office office2 = new Office(1, 2);
-        Office office3 = new Office(3, 4);
+        Office office2 = new Office(2, 1);
+        Office office3 = new Office(4, 3);
 
         list.addToTail(office1);
 
@@ -30,11 +32,12 @@ public class MyListTest extends TestCase {
         assertEquals(office3, list.get(2));
     }
 
+    @Test
     public void testAdd() {
         MyList<Office> list = new MyList<>();
         Office office1 = new Office();
-        Office office2 = new Office(1, 2);
-        Office office3 = new Office(3, 4);
+        Office office2 = new Office(2, 1);
+        Office office3 = new Office(4, 3);
 
         list.addToTail(office2);
 
@@ -53,6 +56,7 @@ public class MyListTest extends TestCase {
 
     }
 
+    @Test
     public void testRemove() {
         MyList<Office> list = new MyList<>();
         Office office1 = new Office(1, 1);

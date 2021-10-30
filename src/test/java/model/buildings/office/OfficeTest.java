@@ -1,17 +1,18 @@
 package model.buildings.office;
 
-import junit.framework.TestCase;
 import model.buildings.Space;
-import model.buildings.flat.Flat;
+import model.buildings.dwelling.Flat;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class OfficeTest extends TestCase {
-
+public class OfficeTest {
+    @Test
     public void testTestHashCode() {
-        Space flat = new Flat(1, 3);
-        Space office1 = new Office(1, 3);
-        Space office2 = new Office(1, 3);
+        Space flat = new Flat(3, 1);
+        Space office1 = new Office(3, 1);
+        Space office2 = new Office(3, 1);
 
         assertEquals(office1.hashCode(), office2.hashCode());
         assertNotEquals(flat.hashCode(), office1.hashCode());

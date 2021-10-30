@@ -88,7 +88,7 @@ public class OfficeBuilding implements Building, Serializable {
 
     @Override
     public String toString() {
-        return SomeBuildingUtilities.toString("OfficeBuilding", floors, size());
+        return SomeBuildingUtilities.toString("OfficeBuilding (", floors, size());
     }
 
     @Override

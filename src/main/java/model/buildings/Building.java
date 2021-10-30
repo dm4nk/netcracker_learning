@@ -51,7 +51,21 @@ public interface Building extends Serializable, Iterable<Floor> {
         floorAndNumber.floor.removeSpace(floorAndNumber.number);
     }
 
+    default Space getBestSpace() {
+        checkIfNumberIsValid(0, sumRoomsCount() - 1, FloorIndexOutOfBoundsException.class);
+        Space bestSpace = getSpace(0);
+        Space tmpBestSpace;
+
+        for (Floor spaces : this) {
+            tmpBestSpace = spaces.getBestSpace();
+            if (tmpBestSpace.getSpace() > bestSpace.getSpace()) bestSpace = tmpBestSpace;
+        }
+
+        return bestSpace;
+    }
+
     private Entity<Floor, Integer> countFloorAndFlat(int number) {
+        //todo: iterator
         int i = 0;
         int j = 0;
         while ((i + getFloor(j++).size()) <= number) {

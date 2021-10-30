@@ -1,4 +1,4 @@
-package model.buildings.flat;
+package model.buildings.dwelling;
 
 import lombok.NonNull;
 import model.buildings.Floor;
@@ -114,7 +114,7 @@ public class DwellingFloor implements Floor {
 
     @Override
     public String toString() {
-        return SomeBuildingUtilities.toString("DwellingFloor", new IterableArray<>(spaces), size());
+        return SomeBuildingUtilities.toString("DwellingFloor (", new IterableArray<>(spaces), size());
     }
 
     @Override
@@ -135,6 +135,6 @@ public class DwellingFloor implements Floor {
         Space[] spaces = new Space[size()];
         for (int i = 0; i < size(); ++i)
             spaces[i] = (Space) this.spaces[i].clone();
-        return spaces;
+        return new DwellingFloor(spaces);
     }
 }

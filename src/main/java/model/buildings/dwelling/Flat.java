@@ -1,4 +1,4 @@
-package model.buildings.flat;
+package model.buildings.dwelling;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class Flat implements Space, Serializable {
     @NonNull
     private int rooms;
 
-    public Flat(double space, int rooms) {
+    public Flat(int rooms, double space) {
         if (space <= 0) throw new InvalidSpaceAreaException();
         if (rooms <= 0) throw new InvalidRoomsCountException();
 
@@ -31,11 +31,11 @@ public class Flat implements Space, Serializable {
     }
 
     public Flat(double space) {
-        this(space, DEFAULT_ROOMS);
+        this(DEFAULT_ROOMS, space);
     }
 
     public Flat() {
-        this(DEFAULT_SQUARE, DEFAULT_ROOMS);
+        this(DEFAULT_ROOMS, DEFAULT_SQUARE);
     }
 
     @Override
@@ -48,6 +48,6 @@ public class Flat implements Space, Serializable {
 
     @Override
     public Object clone() {
-        return new Flat(space, rooms);
+        return new Flat(rooms, space);
     }
 }

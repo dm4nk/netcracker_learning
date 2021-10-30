@@ -1,19 +1,26 @@
-package model.utilities.task4;
+package model.utilities;
 
 import lombok.NonNull;
+import lombok.Setter;
 import model.buildings.Building;
 import model.buildings.Floor;
 import model.buildings.Space;
-import model.buildings.flat.Dwelling;
-import model.buildings.flat.DwellingFloor;
-import model.buildings.flat.Flat;
+import model.utilities.task6.factories.BuildingFactory;
+import model.utilities.task6.factories.impl.DwellingFactory;
 
 import java.io.*;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Formatter;
 import java.util.Scanner;
 
 public abstract class Buildings {
+    @NonNull
+    @Setter
+    private static BuildingFactory buildingFactory = new DwellingFactory();
+
     public static void outputBuilding(@NonNull Building building, @NonNull OutputStream out) {
+
         try (final DataOutputStream stream = new DataOutputStream(out)) {
             stream.writeInt(building.size());
 
@@ -30,11 +37,11 @@ public abstract class Buildings {
     }
 
     public static Building inputBuilding(@NonNull InputStream in) {
-        DwellingFloor[] floors = null;
+        Floor[] floors = null;
         try (DataInputStream stream = new DataInputStream(in)) {
             int floorsCount = stream.readInt();
 
-            floors = new DwellingFloor[floorsCount];
+            floors = new Floor[floorsCount];
 
             int spaceCounter;
             Space[] spaces;
@@ -48,15 +55,15 @@ public abstract class Buildings {
                 for (int j = 0; j < spaceCounter; ++j) {
                     rooms = stream.readInt();
                     square = stream.readDouble();
-                    spaces[j] = new Flat(square, rooms);
+                    spaces[j] = buildingFactory.createSpace(rooms, square);
                 }
 
-                floors[i] = new DwellingFloor(spaces);
+                floors[i] = buildingFactory.createFloor(spaces);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new Dwelling(floors);
+        return buildingFactory.createBuilding(floors);
     }
 
     public static void writeBuilding(@NonNull Building building, @NonNull Writer out) {
@@ -95,7 +102,7 @@ public abstract class Buildings {
         tokenizer.nextToken();
         int floorsCount = (int) tokenizer.nval;
 
-        DwellingFloor[] floors = new DwellingFloor[floorsCount];
+        Floor[] floors = new Floor[floorsCount];
 
         int spaceCounter;
         Space[] spaces;
@@ -112,18 +119,18 @@ public abstract class Buildings {
                 rooms = (int) tokenizer.nval;
                 tokenizer.nextToken();
                 square = tokenizer.nval;
-                spaces[j] = new Flat(square, rooms);
+                spaces[j] = buildingFactory.createSpace(rooms, square);
             }
 
-            floors[i] = new DwellingFloor(spaces);
+            floors[i] = buildingFactory.createFloor(spaces);
         }
-        return new Dwelling(floors);
+        return buildingFactory.createBuilding(floors);
     }
 
     public static Building readBuilding(@NonNull Scanner scanner) {
         int floorsCount = scanner.nextInt();
 
-        DwellingFloor[] floors = new DwellingFloor[floorsCount];
+        Floor[] floors = new Floor[floorsCount];
 
         int spaceCounter;
         Space[] spaces;
@@ -137,13 +144,13 @@ public abstract class Buildings {
             for (int j = 0; j < spaceCounter; ++j) {
                 rooms = scanner.nextInt();
                 square = scanner.nextFloat();
-                spaces[j] = new Flat(square, rooms);
+                spaces[j] = buildingFactory.createSpace(rooms, square);
             }
 
-            floors[i] = new DwellingFloor(spaces);
+            floors[i] = buildingFactory.createFloor(spaces);
         }
 
-        return new Dwelling(floors);
+        return buildingFactory.createBuilding(floors);
     }
 
     public static void serializeBuilding(@NonNull Building building, @NonNull OutputStream out) {
@@ -163,4 +170,37 @@ public abstract class Buildings {
         }
         return building;
     }
+
+    public static <T extends Comparable<T>> void sort(@NonNull T[] t) {
+        Arrays.sort(t);
+    }
+
+    public static <T> void sort(@NonNull T[] t, @NonNull Comparator<T> comparator) {
+        Arrays.sort(t, comparator);
+    }
+
+    public Space createSpace(double area) {
+        return buildingFactory.createSpace(area);
+    }
+
+    public Space createSpace(int roomsCount, double area) {
+        return buildingFactory.createSpace(roomsCount, area);
+    }
+
+    public Floor createFloor(int spacesCount) {
+        return buildingFactory.createFloor(spacesCount);
+    }
+
+    public Floor createFloor(Space[] spaces) {
+        return buildingFactory.createFloor(spaces);
+    }
+
+    public Building createBuilding(int floorsCount, int[] spacesCounts) {
+        return buildingFactory.createBuilding(floorsCount, spacesCounts);
+    }
+
+    public Building createBuilding(Floor[] floors) {
+        return buildingFactory.createBuilding(floors);
+    }
+
 }

@@ -22,7 +22,7 @@ public class Office implements Space, Serializable {
     @NonNull
     private int rooms;
 
-    public Office(double space, int rooms) {
+    public Office(int rooms, double space) {
         if (space <= 0) throw new InvalidSpaceAreaException();
         if (rooms <= 0) throw new InvalidRoomsCountException();
 
@@ -31,11 +31,11 @@ public class Office implements Space, Serializable {
     }
 
     public Office(double space) {
-        this(space, DEFAULT_ROOMS);
+        this(DEFAULT_ROOMS, space);
     }
 
     public Office() {
-        this(DEFAULT_SQUARE, DEFAULT_ROOMS);
+        this(DEFAULT_ROOMS, DEFAULT_SQUARE);
     }
 
     @Override
@@ -62,6 +62,6 @@ public class Office implements Space, Serializable {
 
     @Override
     public Object clone() {
-        return new Office(space, rooms);
+        return new Office(rooms, space);
     }
 }

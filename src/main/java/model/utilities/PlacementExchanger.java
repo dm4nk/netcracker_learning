@@ -1,4 +1,4 @@
-package model.utilities.task4;
+package model.utilities;
 
 import lombok.NonNull;
 import model.buildings.Building;
@@ -6,7 +6,6 @@ import model.buildings.Floor;
 import model.buildings.Space;
 import model.exeptions.InexchangeableFloorsException;
 import model.exeptions.InexchangeableSpacesException;
-import model.utilities.IndexChecker;
 
 public abstract class PlacementExchanger {
     public static boolean canChange(@NonNull Space first, @NonNull Space second) {

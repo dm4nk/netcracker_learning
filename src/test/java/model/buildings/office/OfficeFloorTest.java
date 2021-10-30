@@ -1,14 +1,13 @@
 package model.buildings.office;
 
-import junit.framework.TestCase;
 import model.exeptions.SpaceIndexOutOfBoundsException;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class OfficeFloorTest extends TestCase {
+public class OfficeFloorTest {
 
-
+    @Test
     public void testAddFlat() {
         OfficeFloor officeFloor = new OfficeFloor(new Office[]{new Office(1, 1), new Office(2, 2), new Office(3, 3)});
 
@@ -24,6 +23,7 @@ public class OfficeFloorTest extends TestCase {
         assertThrows(SpaceIndexOutOfBoundsException.class, () -> officeFloor.addSpace(-1, new Office(6, 6)));
     }
 
+    @Test
     public void testDeleteFlat() {
         OfficeFloor officeFloor = new OfficeFloor(new Office[]{new Office(1, 1), new Office(2, 2), new Office(3, 3)});
 
@@ -41,11 +41,12 @@ public class OfficeFloorTest extends TestCase {
         assertThrows(IllegalStateException.class, () -> officeFloor.removeSpace(0));
     }
 
+    @Test
     public void testTestEquals() {
         OfficeFloor officeFloor1 = new OfficeFloor(new Office[]{new Office(1, 1), new Office(2, 2), new Office(3, 3)});
         OfficeFloor officeFloor2 = new OfficeFloor(new Office[]{new Office(1, 1), new Office(2, 2), new Office(3, 3)});
-        OfficeFloor officeFloor3 = new OfficeFloor(new Office[]{new Office(1, 2), new Office(2, 2), new Office(3, 3)});
-        OfficeFloor officeFloor4 = new OfficeFloor(new Office[]{new Office(1, 2), new Office(3, 3)});
+        OfficeFloor officeFloor3 = new OfficeFloor(new Office[]{new Office(2, 1), new Office(2, 2), new Office(3, 3)});
+        OfficeFloor officeFloor4 = new OfficeFloor(new Office[]{new Office(2, 1), new Office(3, 3)});
 
         assertEquals(officeFloor1, officeFloor2);
         assertNotEquals(officeFloor1, officeFloor3);

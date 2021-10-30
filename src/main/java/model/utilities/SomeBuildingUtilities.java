@@ -64,7 +64,7 @@ public abstract class SomeBuildingUtilities {
             spaces.append(iterator.next()).append(", ");
         spaces.append(iterator.next());
 
-        return name + " (" +
+        return name +
                 size + ", " + spaces +
                 ')';
     }
@@ -86,7 +86,7 @@ public abstract class SomeBuildingUtilities {
         }
     }
 
-    //todo: жовести до ума, чтобы работало с итераторами
+    //todo: жовести до ума, чтобы работало с array
     public static <E extends MyCloneable, T extends Iterable<E>> Object copyForList(T t) {
         MyList<E> list = new MyList<>();
 
