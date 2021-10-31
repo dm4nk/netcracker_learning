@@ -85,9 +85,4 @@ public abstract class SomeBuildingUtilities {
             }
         }
     }
-
-    //todo: жовести до ума, чтобы работало с array
-    public static <T extends MyCloneable> Object copyForList(T t) {
-        return t.clone();
-    }
 }
