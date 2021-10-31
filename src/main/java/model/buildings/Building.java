@@ -5,6 +5,7 @@ import model.exeptions.FloorIndexOutOfBoundsException;
 import model.utilities.Entity;
 
 import java.io.Serializable;
+import java.util.Iterator;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
 
@@ -65,14 +66,17 @@ public interface Building extends Serializable, Iterable<Floor> {
     }
 
     private Entity<Floor, Integer> countFloorAndFlat(int number) {
-        //todo: iterator
         int i = 0;
-        int j = 0;
-        while ((i + getFloor(j++).size()) <= number) {
-            i += getFloor(j - 1).size();
+
+        Iterator<Floor> iterator = iterator();
+        Floor floor = iterator.next();
+
+        while ((i + floor.size()) <= number) {
+            i += floor.size();
+            floor = iterator.next();
         }
 
-        return new Entity<>(getFloor(j - 1), number - i);
+        return new Entity<>(floor, number - i);
     }
 
     Space[] getSquares();
