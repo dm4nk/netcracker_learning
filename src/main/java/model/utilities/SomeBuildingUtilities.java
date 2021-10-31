@@ -87,15 +87,7 @@ public abstract class SomeBuildingUtilities {
     }
 
     //todo: жовести до ума, чтобы работало с array
-    public static <E extends MyCloneable, T extends Iterable<E>> Object copyForList(T t) {
-        MyList<E> list = new MyList<>();
-
-        for (E e : t) {
-            list.addToTail((E) e.clone());
-        }
-
-        return list;
+    public static <T extends MyCloneable> Object copyForList(T t) {
+        return t.clone();
     }
-
-
 }

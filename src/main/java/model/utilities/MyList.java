@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class MyList<T> implements Iterable<T>, Serializable {
+public class MyList<T extends MyCloneable> implements Iterable<T>, Serializable, MyCloneable {
     private final Node head = new Node(null, null);
     private int size;
 
@@ -109,11 +109,13 @@ public class MyList<T> implements Iterable<T>, Serializable {
         }
     }
 
+    @Override
+    @SuppressWarnings("all")
     public MyList<T> clone() {
         MyList<T> newList = new MyList<>();
 
         for (T t : this)
-            newList.addToTail(t);
+            newList.addToTail((T) t.clone());
 
         return newList;
     }

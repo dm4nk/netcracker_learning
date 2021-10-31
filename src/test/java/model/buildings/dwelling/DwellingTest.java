@@ -60,4 +60,19 @@ public class DwellingTest {
         assertNotEquals(building1, building3);
         assertNotEquals(building1, building4);
     }
+
+    @Test
+    void testClone() {
+        DwellingFloor floor1 = new DwellingFloor(new Space[]{new Office(1, 1)});
+        DwellingFloor floor2 = new DwellingFloor(new Office[]{new Office(1, 2), new Office(2, 2)});
+        DwellingFloor floor3 = new DwellingFloor(new Office[]{new Office(1, 3), new Office(2, 3), new Office(3, 3)});
+
+        Dwelling building1 = new Dwelling(new DwellingFloor[]{floor1, floor2, floor3});
+
+        Dwelling building2 = (Dwelling) building1.clone();
+
+        building1.setSpace(0, new Flat(11, 111));
+
+        assertNotEquals(building1.getSpace(0), building2.getSpace(0));
+    }
 }

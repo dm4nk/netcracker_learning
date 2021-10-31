@@ -1,5 +1,6 @@
 package model.buildings.office;
 
+import model.buildings.dwelling.Flat;
 import model.exeptions.SpaceIndexOutOfBoundsException;
 import org.junit.jupiter.api.Test;
 
@@ -51,5 +52,16 @@ public class OfficeFloorTest {
         assertEquals(officeFloor1, officeFloor2);
         assertNotEquals(officeFloor1, officeFloor3);
         assertNotEquals(officeFloor1, officeFloor4);
+    }
+
+    @Test
+    void testClone() {
+        OfficeFloor officeFloor1 = new OfficeFloor(new Office[]{new Office(1, 1), new Office(2, 2), new Office(3, 3)});
+
+        OfficeFloor officeFloor2 = (OfficeFloor) officeFloor1.clone();
+
+        officeFloor2.setSpace(0, new Flat(22, 44));
+
+        assertNotEquals(officeFloor1.getSpace(0), officeFloor2.getSpace(0));
     }
 }

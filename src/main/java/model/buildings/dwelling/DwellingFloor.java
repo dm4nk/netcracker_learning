@@ -72,6 +72,7 @@ public class DwellingFloor implements Floor {
         spaces = newFlats;
     }
 
+    @SuppressWarnings("all")
     private void arrayCopy(Space[] source, int sourcePosition, Space[] destination, int destinationPosition, int length) {
         checkIfNumberIsValid(sourcePosition, source.length - length, SpaceIndexOutOfBoundsException.class);
         checkIfNumberIsValid(destinationPosition, destination.length - length, SpaceIndexOutOfBoundsException.class);
@@ -104,10 +105,8 @@ public class DwellingFloor implements Floor {
     }
 
     @Override
+    @SuppressWarnings("all")
     public Object clone() {
-        Space[] spaces = new Space[size()];
-        for (int i = 0; i < size(); ++i)
-            spaces[i] = (Space) this.spaces[i].clone();
-        return new DwellingFloor(spaces);
+        return new DwellingFloor(spaces.clone());
     }
 }

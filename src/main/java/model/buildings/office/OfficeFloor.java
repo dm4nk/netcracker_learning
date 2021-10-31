@@ -29,6 +29,10 @@ public class OfficeFloor implements Floor {
             this.spaces.addToTail(new Office());
     }
 
+    private OfficeFloor(MyList<Space> spaces) {
+        this.spaces = spaces;
+    }
+
     public int size() {
         return spaces.size();
     }
@@ -91,7 +95,8 @@ public class OfficeFloor implements Floor {
     }
 
     @Override
+    @SuppressWarnings("all")
     public Object clone() {
-        return SomeBuildingUtilities.copyForList(spaces);
+        return new OfficeFloor(spaces.clone());
     }
 }

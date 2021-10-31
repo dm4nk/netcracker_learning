@@ -1,6 +1,7 @@
 package model.buildings.office;
 
 import model.buildings.Space;
+import model.buildings.dwelling.Flat;
 import org.junit.jupiter.api.Test;
 
 import java.util.stream.IntStream;
@@ -53,5 +54,20 @@ public class OfficeBuildingTest {
         assertNotEquals(officeBuilding1, officeBuilding3);
         assertNotEquals(officeBuilding1, officeBuilding4);
         assertNotEquals(officeBuilding1, officeBuilding5);
+    }
+
+    @Test
+    void testClone() {
+        OfficeFloor floor1 = new OfficeFloor(new Office[]{new Office(1, 1)});
+        OfficeFloor floor2 = new OfficeFloor(new Office[]{new Office(1, 2), new Office(2, 2)});
+        OfficeFloor floor3 = new OfficeFloor(new Office[]{new Office(1, 3), new Office(2, 3), new Office(3, 3)});
+
+        OfficeBuilding officeBuilding1 = new OfficeBuilding(new OfficeFloor[]{floor1, floor2, floor3});
+
+        OfficeBuilding officeBuilding2 = (OfficeBuilding) officeBuilding1.clone();
+
+        officeBuilding1.setSpace(0, new Flat(12, 122));
+
+        assertNotEquals(officeBuilding1.getSpace(0), officeBuilding2.getSpace(0));
     }
 }

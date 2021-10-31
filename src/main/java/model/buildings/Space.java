@@ -4,7 +4,7 @@ import model.utilities.MyCloneable;
 
 import java.io.Serializable;
 
-public interface Space extends Serializable, MyCloneable, Comparable<Space> {
+public interface Space extends Serializable, Comparable<Space>, MyCloneable {
     double getSpace();
 
     void setSpace(double space);

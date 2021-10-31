@@ -38,6 +38,10 @@ public class OfficeBuilding implements Building, Serializable {
             this.floors.addToTail(o);
     }
 
+    private OfficeBuilding(MyList<Floor> floors) {
+        this.floors = floors;
+    }
+
     @Override
     public int size() {
         return floors.size();
@@ -105,7 +109,8 @@ public class OfficeBuilding implements Building, Serializable {
     }
 
     @Override
+    @SuppressWarnings("all")
     public Object clone() {
-        return SomeBuildingUtilities.copyForList(floors);
+        return new OfficeBuilding(floors.clone());
     }
 }
