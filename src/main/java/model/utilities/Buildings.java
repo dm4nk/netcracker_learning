@@ -5,6 +5,7 @@ import lombok.Setter;
 import model.buildings.Building;
 import model.buildings.Floor;
 import model.buildings.Space;
+import model.buildings.SynchronizedFloor;
 import model.utilities.task6.factories.BuildingFactory;
 import model.utilities.task6.factories.impl.DwellingFactory;
 
@@ -169,6 +170,10 @@ public abstract class Buildings {
             e.printStackTrace();
         }
         return building;
+    }
+
+    public static Floor synchronizedFloor(Floor floor) {
+        return new SynchronizedFloor(floor);
     }
 
     public static <T extends Comparable<T>> void sort(@NonNull T[] t) {
