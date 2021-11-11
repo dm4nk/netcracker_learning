@@ -4,7 +4,6 @@ import lombok.NonNull;
 import model.utilities.MyCloneable;
 
 import java.io.Serializable;
-import java.util.Iterator;
 
 public interface Floor extends Serializable, Iterable<Space>, MyCloneable, Comparable<Floor> {
     int size();
@@ -41,8 +40,6 @@ public interface Floor extends Serializable, Iterable<Space>, MyCloneable, Compa
         }
         return bestSpaceFlat;
     }
-
-    Iterator<Space> iterator();
 
     Object clone();
 
