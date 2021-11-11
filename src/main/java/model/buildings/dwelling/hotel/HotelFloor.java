@@ -6,6 +6,7 @@ import model.buildings.dwelling.DwellingFloor;
 import model.utilities.IterableArray;
 import model.utilities.SomeBuildingUtilities;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class HotelFloor extends DwellingFloor {
@@ -44,7 +45,7 @@ public class HotelFloor extends DwellingFloor {
         if (!(o instanceof HotelFloor)) return false;
         if (!super.equals(o)) return false;
         HotelFloor spaces = (HotelFloor) o;
-        return getStars() == spaces.getStars();
+        return getStars() == spaces.getStars() && Arrays.equals(spaces.spaces(), this.spaces());
     }
 
     @Override

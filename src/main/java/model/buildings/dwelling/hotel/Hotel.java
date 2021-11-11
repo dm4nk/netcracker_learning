@@ -8,6 +8,7 @@ import model.exeptions.FloorIndexOutOfBoundsException;
 import model.utilities.IterableArray;
 import model.utilities.SomeBuildingUtilities;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import static model.utilities.IndexChecker.checkIfNumberIsValid;
@@ -69,7 +70,7 @@ public class Hotel extends Dwelling {
         if (!(o instanceof Hotel)) return false;
         if (!super.equals(o)) return false;
         Hotel hotel = (Hotel) o;
-        return getStars() == hotel.getStars();
+        return getStars() == hotel.getStars() && Arrays.equals(hotel.getAllFloors(), this.getAllFloors());
     }
 
     @Override
