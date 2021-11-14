@@ -17,6 +17,7 @@ public class BinaryServer {
              PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())))) {
             System.out.println("Clients connected");
             System.out.println("Reading building:\n");
+
             Building building = Buildings.readBuilding(in);
             System.out.println(building);
 

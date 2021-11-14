@@ -56,15 +56,15 @@ public abstract class Buildings {
                 for (int j = 0; j < spaceCounter; ++j) {
                     rooms = stream.readInt();
                     square = stream.readDouble();
-                    spaces[j] = buildingFactory.createSpace(rooms, square);
+                    spaces[j] = createSpace(rooms, square);
                 }
 
-                floors[i] = buildingFactory.createFloor(spaces);
+                floors[i] = createFloor(spaces);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return buildingFactory.createBuilding(floors);
+        return createBuilding(floors);
     }
 
     public static void writeBuilding(@NonNull Building building, @NonNull Writer out) {
@@ -120,12 +120,12 @@ public abstract class Buildings {
                 rooms = (int) tokenizer.nval;
                 tokenizer.nextToken();
                 square = tokenizer.nval;
-                spaces[j] = buildingFactory.createSpace(rooms, square);
+                spaces[j] = createSpace(rooms, square);
             }
 
-            floors[i] = buildingFactory.createFloor(spaces);
+            floors[i] = createFloor(spaces);
         }
-        return buildingFactory.createBuilding(floors);
+        return createBuilding(floors);
     }
 
     public static Building readBuilding(@NonNull Scanner scanner) {
@@ -145,13 +145,13 @@ public abstract class Buildings {
             for (int j = 0; j < spaceCounter; ++j) {
                 rooms = scanner.nextInt();
                 square = scanner.nextFloat();
-                spaces[j] = buildingFactory.createSpace(rooms, square);
+                spaces[j] = createSpace(rooms, square);
             }
 
-            floors[i] = buildingFactory.createFloor(spaces);
+            floors[i] = createFloor(spaces);
         }
 
-        return buildingFactory.createBuilding(floors);
+        return createBuilding(floors);
     }
 
     public static void serializeBuilding(@NonNull Building building, @NonNull OutputStream out) {
@@ -184,28 +184,27 @@ public abstract class Buildings {
         Arrays.sort(t, comparator);
     }
 
-    public Space createSpace(double area) {
+    public static Space createSpace(double area) {
         return buildingFactory.createSpace(area);
     }
 
-    public Space createSpace(int roomsCount, double area) {
+    public static Space createSpace(int roomsCount, double area) {
         return buildingFactory.createSpace(roomsCount, area);
     }
 
-    public Floor createFloor(int spacesCount) {
+    public static Floor createFloor(int spacesCount) {
         return buildingFactory.createFloor(spacesCount);
     }
 
-    public Floor createFloor(Space[] spaces) {
+    public static Floor createFloor(Space[] spaces) {
         return buildingFactory.createFloor(spaces);
     }
 
-    public Building createBuilding(int floorsCount, int[] spacesCounts) {
+    public static Building createBuilding(int floorsCount, int[] spacesCounts) {
         return buildingFactory.createBuilding(floorsCount, spacesCounts);
     }
 
-    public Building createBuilding(Floor[] floors) {
+    public static Building createBuilding(Floor[] floors) {
         return buildingFactory.createBuilding(floors);
     }
-
 }
