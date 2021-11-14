@@ -78,6 +78,7 @@ public abstract class Buildings {
                     writer.print(s.getSpace() + " ");
                 }
             }
+        writer.flush();
     }
 
     public static void writeBuildingFormat(@NonNull Building building, @NonNull Writer out) {
