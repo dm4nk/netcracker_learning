@@ -68,7 +68,7 @@ public abstract class Buildings {
     }
 
     public static void writeBuilding(@NonNull Building building, @NonNull Writer out) {
-        try (PrintWriter writer = new PrintWriter(out)) {
+        PrintWriter writer = new PrintWriter(out);
             writer.print(building.size() + " ");
 
             for (Floor f : building.getAllFloors()) {
@@ -78,7 +78,6 @@ public abstract class Buildings {
                     writer.print(s.getSpace() + " ");
                 }
             }
-        }
     }
 
     public static void writeBuildingFormat(@NonNull Building building, @NonNull Writer out) {

@@ -19,7 +19,7 @@ public class BinaryServer {
             Building building = Buildings.readBuilding(in);
             System.out.println(building);
 
-            System.out.println("Writing size" + building.size());
+            System.out.println("Writing size: " + building.size());
             out.write(building.size());
         }
     }
