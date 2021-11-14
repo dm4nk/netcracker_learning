@@ -11,35 +11,74 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BinaryClient {
+    public static final int PORT = 8080;
 
     public static void main(String[] args) throws IOException {
-        try (Socket socket = new Socket("localhost", 8080);
+        try (Socket socket = new Socket("localhost", PORT);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())))) {
             System.out.println("Connected to server");
 
-            System.out.println("Reading building from file");
+            System.out.println("Reading building info and types from files");
 
-            List<Building> buildingList = getBuildingList(new File("src/main/resources/buildingsInfo.txt"), new File("src/main/resources/buildingsTypes.txt"));
+            List<String> buildingTypeList = getBuildingTypeList(new File("src/main/resources/buildingsTypes.txt"));
+            List<String> buildingInfoList = getBuildingInfoList(new File("src/main/resources/buildingsInfo.txt"));
 
             System.out.println("--------------------------------------------");
-            for (Building b : buildingList)
-                System.out.println(b);
+            for (String t : buildingTypeList)
+                System.out.println(t);
+
+            for (String i : buildingInfoList)
+                System.out.println(i);
             System.out.println("--------------------------------------------");
 
-            System.out.println("Writing building");
-            for (Building b : buildingList)
-                Buildings.writeBuilding(b, out);
+            System.out.println("Passing size parameter");
+            out.write(buildingTypeList.size());
+            out.flush();
 
-            System.out.println("Reading sizes");
-            List<Integer> sizeList = new ArrayList<>();
-            int size;
-            while ((size = in.read()) != -1) {
-                sizeList.add(size);
+            List<String> priceList = new ArrayList<>();
+            for (int i = 0; i < buildingTypeList.size(); ++i) {
+                System.out.println("Writing building type");
+                out.write(buildingTypeList.get(i) + "\n");
+                out.flush();
+
+                System.out.println("Writing building info");
+                out.write(buildingInfoList.get(i) + "\n");
+                out.flush();
+
+                System.out.println("Reading price");
+                priceList.add(in.readLine());
             }
-            for (int s : sizeList)
+
+            for (String s : priceList)
                 System.out.println(s);
         }
+    }
+
+    private static List<String> getBuildingTypeList(File types) {
+        List<String> buildingList = new ArrayList<>();
+        try (BufferedReader typesReader = new BufferedReader(new FileReader(types))) {
+            String type;
+            while ((type = typesReader.readLine()) != null) {
+                buildingList.add(type);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return buildingList;
+    }
+
+    private static List<String> getBuildingInfoList(File info) {
+        List<String> buildingList = new ArrayList<>();
+        try (BufferedReader typesReader = new BufferedReader(new FileReader(info))) {
+            String type;
+            while ((type = typesReader.readLine()) != null) {
+                buildingList.add(type);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return buildingList;
     }
 
     private static List<Building> getBuildingList(File info, File types) {
@@ -51,8 +90,10 @@ public class BinaryClient {
                 switch (type) {
                     case "Dwelling":
                         Buildings.setBuildingFactory(new DwellingFactory());
+                        break;
                     case "Office":
                         Buildings.setBuildingFactory(new OfficeFactory());
+                        break;
                 }
                 buildingList.add(Buildings.readBuilding(infoReader));
             }
