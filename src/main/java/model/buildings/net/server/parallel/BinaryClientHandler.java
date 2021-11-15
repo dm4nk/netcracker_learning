@@ -7,11 +7,11 @@ import java.net.Socket;
 
 import static model.buildings.net.server.utility.SomeServerUtilities.executeDataExchange;
 
-public class ClientHandler implements Runnable {
+public class BinaryClientHandler implements Runnable {
     private final BufferedReader in;
     private final PrintWriter out;
 
-    public ClientHandler(@NonNull Socket clientSocket) throws IOException {
+    public BinaryClientHandler(@NonNull Socket clientSocket) throws IOException {
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())));
     }

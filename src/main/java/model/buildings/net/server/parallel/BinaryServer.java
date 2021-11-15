@@ -14,7 +14,7 @@ public class BinaryServer {
                 Socket socket = serverSocket.accept();
                 System.out.println("Clients connected");
 
-                Thread thread = new Thread(new ClientHandler(socket));
+                Thread thread = new Thread(new BinaryClientHandler(socket));
                 thread.start();
             }
         }
