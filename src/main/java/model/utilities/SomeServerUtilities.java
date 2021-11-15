@@ -23,8 +23,6 @@ public abstract class SomeServerUtilities {
 
 
     public static Building readBuilding(@NonNull BufferedReader in) throws IOException {
-        Building building = null;
-
         System.out.println("Reading building type");
 
         String type = in.readLine();
@@ -41,10 +39,7 @@ public abstract class SomeServerUtilities {
         }
 
         System.out.println("Reading building info");
-        building = Buildings.readBuilding(in);
-
-
-        return building;
+        return Buildings.readBuilding(in);
     }
 
     public static Double writePrice(@NonNull PrintWriter out, @NonNull Building building) {
@@ -62,7 +57,7 @@ public abstract class SomeServerUtilities {
         return price;
     }
 
-    public static Double getPrice(Building building) throws BuildingUnderArrestException {
+    public static Double getPrice(@NonNull Building building) throws BuildingUnderArrestException {
         double sum = building.sumSquare();
 
         if (buildingUnderArrest()) throw new BuildingUnderArrestException();

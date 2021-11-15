@@ -17,7 +17,7 @@ public class BinaryServer {
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
              PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())))) {
             System.out.println("Clients connected");
-            System.out.println("Reading size parameter: ");
+            System.out.println("Reading size parameter:");
             int size = in.read();
             System.out.println(size);
 

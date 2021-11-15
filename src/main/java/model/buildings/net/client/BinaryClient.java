@@ -40,7 +40,6 @@ public class BinaryClient {
             out.write(buildingTypeList.size());
             out.flush();
 
-            List<String> priceList = new ArrayList<>();
             for (int i = 0; i < buildingTypeList.size(); ++i) {
                 System.out.println("Writing building type");
                 out.write(buildingTypeList.get(i) + "\n");
@@ -51,12 +50,9 @@ public class BinaryClient {
                 out.flush();
 
                 System.out.println("Reading price");
-                priceList.add(in.readLine());
-            }
-
-            for (String s : priceList) {
-                System.out.println(s);
-                outPrices.write(s + "\n");
+                String price = in.readLine();
+                System.out.println(price);
+                outPrices.write(price + "\n");
             }
         }
     }

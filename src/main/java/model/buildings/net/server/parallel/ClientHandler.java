@@ -1,5 +1,6 @@
 package model.buildings.net.server.parallel;
 
+import lombok.NonNull;
 import model.buildings.Building;
 import model.utilities.SomeServerUtilities;
 
@@ -10,7 +11,7 @@ public class ClientHandler implements Runnable {
     private final BufferedReader in;
     private final PrintWriter out;
 
-    public ClientHandler(Socket clientSocket) throws IOException {
+    public ClientHandler(@NonNull Socket clientSocket) throws IOException {
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())));
     }
@@ -28,10 +29,11 @@ public class ClientHandler implements Runnable {
 
                 Double price = SomeServerUtilities.writePrice(out, building);
                 System.out.println(price);
+                in.close();
+                out.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
