@@ -3,24 +3,32 @@ package model.buildings.net.server.parallel;
 import model.buildings.Building;
 import model.utilities.SomeServerUtilities;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
-    private final Socket clientSocket;
+    private final BufferedReader in;
+    private final PrintWriter out;
 
-    public ClientHandler(Socket clientSocket) {
-        this.clientSocket = clientSocket;
+    public ClientHandler(Socket clientSocket) throws IOException {
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())));
     }
 
     @Override
     public void run() {
         try {
-            Building building = SomeServerUtilities.readBuilding(clientSocket.getInputStream());
-            System.out.println(building);
+            System.out.println("Reading size parameter: ");
+            int size = in.read();
+            System.out.println(size);
 
-            Double price = SomeServerUtilities.writePrice(clientSocket.getOutputStream(), building);
-            System.out.println(price);
+            for (int i = 0; i < size; ++i) {
+                Building building = SomeServerUtilities.readBuilding(in);
+                System.out.println(building);
+
+                Double price = SomeServerUtilities.writePrice(out, building);
+                System.out.println(price);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
