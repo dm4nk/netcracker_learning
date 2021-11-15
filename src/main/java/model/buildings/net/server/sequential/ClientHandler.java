@@ -1,9 +1,6 @@
 package model.buildings.net.server.sequential;
 
 import model.buildings.Building;
-import model.buildings.dwelling.Dwelling;
-import model.buildings.dwelling.hotel.Hotel;
-import model.buildings.office.OfficeBuilding;
 import model.exeptions.BuildingUnderArrestException;
 import model.utilities.Buildings;
 import model.utilities.task6.factories.impl.DwellingFactory;
@@ -11,24 +8,22 @@ import model.utilities.task6.factories.impl.HotelFactory;
 import model.utilities.task6.factories.impl.OfficeFactory;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 
-public class BinaryServer {
-    public static final int PORT = 8080;
-    private static final int PRICE_FOR_DWELLING = 1000;
-    private static final int PRICE_FOR_OFFICE = 1500;
-    private static final int PRICE_FOR_HOTEL = 2000;
+import static model.buildings.net.server.sequential.BinaryServer.getPrice;
 
-    private static final double PROBABILITY_OF_ARREST = 0.1;
+public class ClientHandler extends Thread {
+    private final Socket socket;
 
+    public ClientHandler(Socket socket) {
+        this.socket = socket;
+        start();
+    }
 
-    public static void main(String[] args) throws IOException {
-        System.out.println("Waiting for client");
-        try (ServerSocket serverSocket = new ServerSocket(PORT);
-             Socket clientSocket = serverSocket.accept();
-             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())))) {
+    @Override
+    public void run() {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())))) {
             System.out.println("Clients connected");
 
             System.out.println("Reading size parameter: ");
@@ -64,22 +59,8 @@ public class BinaryServer {
                     out.flush();
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
-
-    public static Double getPrice(Building building) throws BuildingUnderArrestException {
-        double sum = building.sumSquare();
-
-        if (buildingUnderArrest()) throw new BuildingUnderArrestException();
-
-        if (building instanceof Hotel) return sum * PRICE_FOR_HOTEL;
-        if (building instanceof Dwelling) return sum * PRICE_FOR_DWELLING;
-        if (building instanceof OfficeBuilding) return sum * PRICE_FOR_OFFICE;
-
-        else return null;
-    }
-
-    private static boolean buildingUnderArrest() {
-        return Math.random() < PROBABILITY_OF_ARREST;
     }
 }

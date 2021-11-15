@@ -12,17 +12,21 @@ import java.util.List;
 
 public class BinaryClient {
     public static final int PORT = 8080;
+    private static final File INFO = new File("src/main/resources/buildingsInfo.txt");
+    private static final File TYPES = new File("src/main/resources/buildingsTypes.txt");
+    private static final File PRICES = new File("src/main/resources/buildingsPrices.txt");
 
     public static void main(String[] args) throws IOException {
         try (Socket socket = new Socket("localhost", PORT);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())))) {
+             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
+             PrintWriter outPrices = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(PRICES))))) {
             System.out.println("Connected to server");
 
             System.out.println("Reading building info and types from files");
 
-            List<String> buildingTypeList = getBuildingTypeList(new File("src/main/resources/buildingsTypes.txt"));
-            List<String> buildingInfoList = getBuildingInfoList(new File("src/main/resources/buildingsInfo.txt"));
+            List<String> buildingTypeList = getBuildingTypeList(TYPES);
+            List<String> buildingInfoList = getBuildingInfoList(INFO);
 
             System.out.println("--------------------------------------------");
             for (String t : buildingTypeList)
@@ -50,8 +54,10 @@ public class BinaryClient {
                 priceList.add(in.readLine());
             }
 
-            for (String s : priceList)
+            for (String s : priceList) {
                 System.out.println(s);
+                outPrices.write(s + "\n");
+            }
         }
     }
 
