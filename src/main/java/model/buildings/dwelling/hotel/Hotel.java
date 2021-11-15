@@ -5,8 +5,8 @@ import model.buildings.Floor;
 import model.buildings.Space;
 import model.buildings.dwelling.Dwelling;
 import model.exeptions.FloorIndexOutOfBoundsException;
-import model.utilities.IterableArray;
 import model.utilities.SomeBuildingUtilities;
+import model.utilities.mycollections.IterableArray;
 
 import java.util.Arrays;
 import java.util.Objects;

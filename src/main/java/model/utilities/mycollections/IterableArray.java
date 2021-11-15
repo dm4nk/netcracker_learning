@@ -1,4 +1,4 @@
-package model.utilities;
+package model.utilities.mycollections;
 
 import lombok.NonNull;
 

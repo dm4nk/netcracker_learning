@@ -6,8 +6,8 @@ import model.buildings.Floor;
 import model.buildings.Space;
 import model.exeptions.FloorIndexOutOfBoundsException;
 import model.exeptions.InvalidRoomsCountException;
-import model.utilities.IterableArray;
 import model.utilities.SomeBuildingUtilities;
+import model.utilities.mycollections.IterableArray;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -102,6 +102,7 @@ public class Dwelling implements Building, Serializable {
     }
 
     @Override
+    @SuppressWarnings("all")
     public Object clone() {
         Floor[] floors = new Floor[size()];
         for (int i = 0; i < size(); ++i)

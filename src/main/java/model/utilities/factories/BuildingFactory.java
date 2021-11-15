@@ -1,4 +1,4 @@
-package model.utilities.task6.factories;
+package model.utilities.factories;
 
 import model.buildings.Building;
 import model.buildings.Floor;

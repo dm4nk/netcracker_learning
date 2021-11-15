@@ -6,8 +6,8 @@ import model.buildings.Floor;
 import model.buildings.Space;
 import model.exeptions.FloorIndexOutOfBoundsException;
 import model.exeptions.InvalidRoomsCountException;
-import model.utilities.MyList;
 import model.utilities.SomeBuildingUtilities;
+import model.utilities.mycollections.MyList;
 
 import java.io.Serializable;
 import java.util.Iterator;

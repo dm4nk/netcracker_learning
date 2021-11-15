@@ -4,8 +4,8 @@ import lombok.NonNull;
 import model.buildings.Floor;
 import model.buildings.Space;
 import model.exeptions.SpaceIndexOutOfBoundsException;
-import model.utilities.IterableArray;
 import model.utilities.SomeBuildingUtilities;
+import model.utilities.mycollections.IterableArray;
 
 import java.util.Arrays;
 import java.util.Iterator;

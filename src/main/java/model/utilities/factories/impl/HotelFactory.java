@@ -1,14 +1,14 @@
-package model.utilities.task6.factories.impl;
+package model.utilities.factories.impl;
 
 import model.buildings.Building;
 import model.buildings.Floor;
 import model.buildings.Space;
-import model.buildings.dwelling.Dwelling;
-import model.buildings.dwelling.DwellingFloor;
 import model.buildings.dwelling.Flat;
-import model.utilities.task6.factories.BuildingFactory;
+import model.buildings.dwelling.hotel.Hotel;
+import model.buildings.dwelling.hotel.HotelFloor;
+import model.utilities.factories.BuildingFactory;
 
-public class DwellingFactory implements BuildingFactory {
+public class HotelFactory implements BuildingFactory {
     @Override
     public Space createSpace(double area) {
         return new Flat(area);
@@ -21,21 +21,21 @@ public class DwellingFactory implements BuildingFactory {
 
     @Override
     public Floor createFloor(int spacesCount) {
-        return new DwellingFloor(spacesCount);
+        return new HotelFloor(spacesCount);
     }
 
     @Override
     public Floor createFloor(Space[] spaces) {
-        return new DwellingFloor(spaces);
+        return new HotelFloor(spaces);
     }
 
     @Override
     public Building createBuilding(int floorsCount, int[] spacesCounts) {
-        return new Dwelling(floorsCount, spacesCounts);
+        return new Hotel(floorsCount, spacesCounts);
     }
 
     @Override
     public Building createBuilding(Floor[] floors) {
-        return new Dwelling(floors);
+        return new Hotel(floors);
     }
 }

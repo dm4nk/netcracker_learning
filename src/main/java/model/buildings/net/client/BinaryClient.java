@@ -2,8 +2,8 @@ package model.buildings.net.client;
 
 import model.buildings.Building;
 import model.utilities.Buildings;
-import model.utilities.task6.factories.impl.DwellingFactory;
-import model.utilities.task6.factories.impl.OfficeFactory;
+import model.utilities.factories.impl.DwellingFactory;
+import model.utilities.factories.impl.OfficeFactory;
 
 import java.io.*;
 import java.net.Socket;

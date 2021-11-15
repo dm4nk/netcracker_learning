@@ -1,6 +1,7 @@
 package model.utilities;
 
 import model.buildings.office.Office;
+import model.utilities.mycollections.MyList;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

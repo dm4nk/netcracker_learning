@@ -1,4 +1,4 @@
-package model.utilities.task6;
+package model.utilities.comparators;
 
 import model.buildings.Space;
 

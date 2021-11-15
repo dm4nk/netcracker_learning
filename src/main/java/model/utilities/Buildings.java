@@ -6,8 +6,8 @@ import model.buildings.Building;
 import model.buildings.Floor;
 import model.buildings.Space;
 import model.buildings.SynchronizedFloor;
-import model.utilities.task6.factories.BuildingFactory;
-import model.utilities.task6.factories.impl.DwellingFactory;
+import model.utilities.factories.BuildingFactory;
+import model.utilities.factories.impl.DwellingFactory;
 
 import java.io.*;
 import java.util.Arrays;

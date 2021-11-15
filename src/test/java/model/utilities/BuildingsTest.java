@@ -9,8 +9,8 @@ import model.buildings.dwelling.Flat;
 import model.buildings.office.Office;
 import model.buildings.office.OfficeBuilding;
 import model.buildings.office.OfficeFloor;
-import model.utilities.task6.FloorComparator;
-import model.utilities.task6.SpaceComparator;
+import model.utilities.comparators.FloorComparator;
+import model.utilities.comparators.SpaceComparator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

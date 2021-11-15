@@ -1,4 +1,6 @@
-package model.utilities;
+package model.utilities.mycollections;
+
+import model.utilities.MyCloneable;
 
 import java.io.Serializable;
 import java.util.Iterator;

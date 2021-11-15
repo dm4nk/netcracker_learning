@@ -19,6 +19,5 @@ public class Main {
 
         repair.start();
         clean.start();
-
     }
 }
