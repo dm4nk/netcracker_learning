@@ -3,6 +3,7 @@ package model.buildings.net.client;
 import model.buildings.Building;
 import model.utilities.Buildings;
 import model.utilities.factories.impl.DwellingFactory;
+import model.utilities.factories.impl.HotelFactory;
 import model.utilities.factories.impl.OfficeFactory;
 
 import java.io.*;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SerialClient {
-    public static final int PORT = 8080;
+    public static final int PORT = 8081;
     private static final File INFO = new File("src/main/resources/buildingsInfo.txt");
     private static final File TYPES = new File("src/main/resources/buildingsTypes.txt");
     private static final File PRICES = new File("src/main/resources/buildingsPrices.txt");
@@ -26,11 +27,12 @@ public class SerialClient {
         System.out.println("--------------------------------------------");
 
         try (Socket socket = new Socket("localhost", PORT);
-             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
              ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
              PrintWriter outPrices = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(PRICES))))) {
             System.out.println("Writing buildings");
             out.writeObject(buildings);
+            out.flush();
 
             System.out.println("Reading prices");
             List<String> prices = (List<String>) in.readObject();
@@ -38,6 +40,7 @@ public class SerialClient {
             for (String p : prices) {
                 System.out.println(p);
                 outPrices.write(p + "\n");
+                outPrices.flush();
             }
         }
     }
@@ -49,6 +52,9 @@ public class SerialClient {
             String type;
             while ((type = typesReader.readLine()) != null) {
                 switch (type) {
+                    case "Hotel":
+                        Buildings.setBuildingFactory(new HotelFactory());
+                        break;
                     case "Dwelling":
                         Buildings.setBuildingFactory(new DwellingFactory());
                         break;
