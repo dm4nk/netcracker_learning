@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static model.buildings.net.server.utility.SomeServerUtilities.executeDataExchange;
+import static model.buildings.net.server.utility.SomeServerUtilities.executeBinaryDataExchange;
 
 public class BinaryServer {
     public static final int PORT = 8080;
@@ -17,7 +17,7 @@ public class BinaryServer {
              PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())))) {
             System.out.println("Clients connected");
             System.out.println("Reading size parameter:");
-            executeDataExchange(in, out);
+            executeBinaryDataExchange(in, out);
         }
     }
 }

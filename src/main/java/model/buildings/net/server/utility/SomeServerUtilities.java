@@ -11,9 +11,9 @@ import model.utilities.factories.impl.DwellingFactory;
 import model.utilities.factories.impl.HotelFactory;
 import model.utilities.factories.impl.OfficeFactory;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class SomeServerUtilities {
     private static final int PRICE_FOR_DWELLING = 1000;
@@ -22,7 +22,24 @@ public abstract class SomeServerUtilities {
 
     private static final double PROBABILITY_OF_ARREST = 0.1;
 
-    public static void executeDataExchange(BufferedReader in, PrintWriter out) throws IOException {
+    public static void executeSerialDataExchange(ObjectInputStream in, ObjectOutputStream out) throws IOException, ClassNotFoundException {
+        System.out.println("Reading buildings");
+        List<Building> buildings = (List<Building>) in.readObject();
+
+        System.out.println("Writing prices");
+        List<String> prices = new ArrayList<>();
+        for (Building b : buildings) {
+            try {
+                prices.add(String.valueOf(SomeServerUtilities.getPrice(b)));
+            } catch (BuildingUnderArrestException e) {
+                prices.add("Building is under arrest");
+            }
+        }
+        out.writeObject(prices);
+    }
+
+    public static void executeBinaryDataExchange(BufferedReader in, PrintWriter out) throws IOException {
+        System.out.println("Reading size parameter: ");
         int size = in.read();
         System.out.println(size);
 

@@ -12,6 +12,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import static model.buildings.net.server.utility.SomeServerUtilities.executeSerialDataExchange;
+
 public class SerialClientHandler implements Runnable {
     private final ObjectOutputStream out;
     private final ObjectInputStream in;
@@ -24,20 +26,7 @@ public class SerialClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("Reading buildings");
-            List<Building> buildings = (List<Building>) in.readObject();
-
-            System.out.println("Writing prices");
-            List<String> prices = new ArrayList<>();
-            for (Building b : buildings) {
-                try {
-                    prices.add(String.valueOf(SomeServerUtilities.getPrice(b)));
-                } catch (BuildingUnderArrestException e) {
-                    prices.add("Building is under arrest");
-                }
-            }
-            out.writeObject(prices);
-
+            executeSerialDataExchange(in, out);
             in.close();
             out.close();
         } catch (IOException | ClassNotFoundException e) {

@@ -5,7 +5,7 @@ import lombok.NonNull;
 import java.io.*;
 import java.net.Socket;
 
-import static model.buildings.net.server.utility.SomeServerUtilities.executeDataExchange;
+import static model.buildings.net.server.utility.SomeServerUtilities.executeBinaryDataExchange;
 
 public class BinaryClientHandler implements Runnable {
     private final BufferedReader in;
@@ -19,8 +19,7 @@ public class BinaryClientHandler implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("Reading size parameter: ");
-            executeDataExchange(in, out);
+            executeBinaryDataExchange(in, out);
             in.close();
             out.close();
         } catch (IOException e) {
