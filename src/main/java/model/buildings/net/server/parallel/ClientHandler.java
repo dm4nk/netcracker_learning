@@ -29,9 +29,9 @@ public class ClientHandler implements Runnable {
 
                 Double price = SomeServerUtilities.writePrice(out, building);
                 System.out.println(price);
-                in.close();
-                out.close();
             }
+            in.close();
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
