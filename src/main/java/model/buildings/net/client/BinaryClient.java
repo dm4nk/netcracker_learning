@@ -1,10 +1,5 @@
 package model.buildings.net.client;
 
-import model.buildings.Building;
-import model.utilities.Buildings;
-import model.utilities.factories.impl.DwellingFactory;
-import model.utilities.factories.impl.OfficeFactory;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -76,28 +71,6 @@ public class BinaryClient {
             String type;
             while ((type = typesReader.readLine()) != null) {
                 buildingList.add(type);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return buildingList;
-    }
-
-    private static List<Building> getBuildingList(File info, File types) {
-        List<Building> buildingList = new ArrayList<>();
-
-        try (BufferedReader infoReader = new BufferedReader(new FileReader(info)); BufferedReader typesReader = new BufferedReader(new FileReader(types))) {
-            String type;
-            while ((type = typesReader.readLine()) != null) {
-                switch (type) {
-                    case "Dwelling":
-                        Buildings.setBuildingFactory(new DwellingFactory());
-                        break;
-                    case "Office":
-                        Buildings.setBuildingFactory(new OfficeFactory());
-                        break;
-                }
-                buildingList.add(Buildings.readBuilding(infoReader));
             }
         } catch (IOException e) {
             e.printStackTrace();

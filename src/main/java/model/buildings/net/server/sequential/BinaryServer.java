@@ -1,10 +1,10 @@
 package model.buildings.net.server.sequential;
 
-import static model.utilities.SomeServerUtilities.executeDataExchange;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import static model.buildings.net.server.utility.SomeServerUtilities.executeDataExchange;
 
 public class BinaryServer {
     public static final int PORT = 8080;

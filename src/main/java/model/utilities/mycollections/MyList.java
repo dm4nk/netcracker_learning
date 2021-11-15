@@ -101,16 +101,6 @@ public class MyList<T extends MyCloneable> implements Iterable<T>, Serializable,
         return Objects.hash(head, size);
     }
 
-    private class Node implements Serializable {
-        private T t;
-        private Node next;
-
-        public Node(Node next, T t) {
-            this.next = next;
-            this.t = t;
-        }
-    }
-
     @Override
     @SuppressWarnings("all")
     public MyList<T> clone() {
@@ -120,5 +110,15 @@ public class MyList<T extends MyCloneable> implements Iterable<T>, Serializable,
             newList.addToTail((T) t.clone());
 
         return newList;
+    }
+
+    private class Node implements Serializable {
+        private T t;
+        private Node next;
+
+        public Node(Node next, T t) {
+            this.next = next;
+            this.t = t;
+        }
     }
 }

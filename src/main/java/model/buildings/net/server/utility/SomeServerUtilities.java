@@ -1,4 +1,4 @@
-package model.utilities;
+package model.buildings.net.server.utility;
 
 import lombok.NonNull;
 import model.buildings.Building;
@@ -6,6 +6,7 @@ import model.buildings.dwelling.Dwelling;
 import model.buildings.dwelling.hotel.Hotel;
 import model.buildings.office.OfficeBuilding;
 import model.exeptions.BuildingUnderArrestException;
+import model.utilities.Buildings;
 import model.utilities.factories.impl.DwellingFactory;
 import model.utilities.factories.impl.HotelFactory;
 import model.utilities.factories.impl.OfficeFactory;
@@ -33,6 +34,7 @@ public abstract class SomeServerUtilities {
             System.out.println(price);
         }
     }
+
 
     public static Building readBuilding(@NonNull BufferedReader in) throws IOException {
         System.out.println("Reading building type");

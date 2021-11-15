@@ -1,13 +1,11 @@
 package model.buildings.net.server.parallel;
 
 import lombok.NonNull;
-import model.buildings.Building;
-import model.utilities.SomeServerUtilities;
 
 import java.io.*;
 import java.net.Socket;
 
-import static model.utilities.SomeServerUtilities.executeDataExchange;
+import static model.buildings.net.server.utility.SomeServerUtilities.executeDataExchange;
 
 public class ClientHandler implements Runnable {
     private final BufferedReader in;

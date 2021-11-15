@@ -69,15 +69,15 @@ public abstract class Buildings {
 
     public static void writeBuilding(@NonNull Building building, @NonNull Writer out) {
         PrintWriter writer = new PrintWriter(out);
-            writer.print(building.size() + " ");
+        writer.print(building.size() + " ");
 
-            for (Floor f : building.getAllFloors()) {
-                writer.print(f.size() + " ");
-                for (Space s : f.spaces()) {
-                    writer.print(s.getRooms() + " ");
-                    writer.print(s.getSpace() + " ");
-                }
+        for (Floor f : building.getAllFloors()) {
+            writer.print(f.size() + " ");
+            for (Space s : f.spaces()) {
+                writer.print(s.getRooms() + " ");
+                writer.print(s.getSpace() + " ");
             }
+        }
         writer.flush();
     }
 
