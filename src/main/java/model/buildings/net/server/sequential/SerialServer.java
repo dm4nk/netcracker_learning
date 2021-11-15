@@ -30,13 +30,12 @@ public class SerialServer {
             List<String> prices = new ArrayList<>();
             for (Building b : buildings) {
                 try {
-                    prices.add(SomeServerUtilities.getPrice(b) + "\n");
+                    prices.add(String.valueOf(SomeServerUtilities.getPrice(b)));
                 } catch (BuildingUnderArrestException e) {
                     prices.add("Building is under arrest");
                 }
             }
             out.writeObject(prices);
-            out.flush();
         }
     }
 }

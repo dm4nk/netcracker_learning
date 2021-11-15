@@ -32,7 +32,6 @@ public class SerialClient {
              PrintWriter outPrices = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(PRICES))))) {
             System.out.println("Writing buildings");
             out.writeObject(buildings);
-            out.flush();
 
             System.out.println("Reading prices");
             List<String> prices = (List<String>) in.readObject();
@@ -40,7 +39,6 @@ public class SerialClient {
             for (String p : prices) {
                 System.out.println(p);
                 outPrices.write(p + "\n");
-                outPrices.flush();
             }
         }
     }
