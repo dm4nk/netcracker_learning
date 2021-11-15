@@ -21,6 +21,18 @@ public abstract class SomeServerUtilities {
 
     private static final double PROBABILITY_OF_ARREST = 0.1;
 
+    public static void executeDataExchange(BufferedReader in, PrintWriter out) throws IOException {
+        int size = in.read();
+        System.out.println(size);
+
+        for (int i = 0; i < size; ++i) {
+            Building building = SomeServerUtilities.readBuilding(in);
+            System.out.println(building);
+
+            Double price = SomeServerUtilities.writePrice(out, building);
+            System.out.println(price);
+        }
+    }
 
     public static Building readBuilding(@NonNull BufferedReader in) throws IOException {
         System.out.println("Reading building type");
