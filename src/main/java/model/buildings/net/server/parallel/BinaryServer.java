@@ -18,7 +18,8 @@ public class BinaryServer {
                 System.out.println("Waiting for client");
                 Socket socket = serverSocket.accept();
 
-                new ClientHandler(socket);
+                Thread thread = new Thread(new ClientHandler(socket));
+                thread.start();
             }
         }
     }

@@ -12,12 +12,11 @@ import java.net.Socket;
 
 import static model.buildings.net.server.sequential.BinaryServer.getPrice;
 
-public class ClientHandler extends Thread {
+public class ClientHandler implements Runnable {
     private final Socket socket;
 
     public ClientHandler(Socket socket) {
         this.socket = socket;
-        start();
     }
 
     @Override
