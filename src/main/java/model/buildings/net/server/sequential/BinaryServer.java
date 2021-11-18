@@ -14,8 +14,8 @@ import static model.buildings.net.server.utility.SomeServerUtilities.executeBina
 public class BinaryServer {
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Waiting for client");
         while (true) {
+            System.out.println("Waiting for client");
             try (ServerSocket serverSocket = new ServerSocket(SomeServerUtilities.BINARY_PORT);
 
                  Socket clientSocket = serverSocket.accept();
