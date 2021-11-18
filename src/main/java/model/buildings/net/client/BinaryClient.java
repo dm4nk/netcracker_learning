@@ -49,6 +49,10 @@ public class BinaryClient {
                 System.out.println(price);
                 outPrices.write(price);
             }
+
+            System.out.println("Sending end message");
+            out.write("stop_it_pls");
+            out.flush();
         }
     }
 

@@ -21,6 +21,13 @@ public class BinaryServer {
                 System.out.println("Clients connected");
                 System.out.println("Reading size parameter:");
                 executeBinaryDataExchange(in, out);
+
+                if (!in.readLine().equals("stop_it_pls")) {
+                    System.out.println("WARNING! END MESSAGE WAS NOT RECEIVED");
+                    clientSocket.close();
+                }
+
+                System.out.println("end message received, ok");
             }
 
         }
