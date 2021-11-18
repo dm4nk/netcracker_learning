@@ -52,7 +52,7 @@ public class BinaryClient {
                 System.out.println("Reading price");
                 String price = in.readLine();
                 System.out.println(price);
-                outPrices.write(price);
+                outPrices.write(price + "\n");
             }
 
             System.out.println("Sending end message");
