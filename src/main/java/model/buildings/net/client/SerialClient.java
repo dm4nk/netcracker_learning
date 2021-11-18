@@ -1,5 +1,7 @@
 package model.buildings.net.client;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import model.buildings.Building;
 import model.utilities.Buildings;
 import model.utilities.factories.impl.DwellingFactory;
@@ -11,11 +13,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class SerialClient {
-    public static final int PORT = 8081;
-    private static final File INFO = new File("src/main/resources/buildingsInfo.txt");
-    private static final File TYPES = new File("src/main/resources/buildingsTypes.txt");
-    private static final File PRICES = new File("src/main/resources/buildingsPrices.txt");
+    static int PORT = 8081;
+    static File INFO = new File("src/main/resources/buildingsInfo.txt");
+    static File TYPES = new File("src/main/resources/buildingsTypes.txt");
+    static File PRICES = new File("src/main/resources/buildingsPrices.txt");
+    static int END_MSG = 228;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         System.out.println("Reading buildings from file");
@@ -40,6 +44,10 @@ public class SerialClient {
                 System.out.println(p);
                 outPrices.write(p + "\n");
             }
+
+            System.out.println("Sending end message");
+            out.write(END_MSG);
+            out.flush();
         }
     }
 
