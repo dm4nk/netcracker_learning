@@ -17,8 +17,8 @@ import static model.buildings.net.server.utility.SomeServerUtilities.executeSeri
 public class SerialServer {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        System.out.println("Waiting for client");
         while (true) {
+            System.out.println("Waiting for client");
             try (ServerSocket serverSocket = new ServerSocket(SomeServerUtilities.SERIAL_PORT);
                  Socket clientSocket = serverSocket.accept();
                  ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
