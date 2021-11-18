@@ -18,20 +18,22 @@ public class SerialServer {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         System.out.println("Waiting for client");
-        try (ServerSocket serverSocket = new ServerSocket(PORT);
-             Socket clientSocket = serverSocket.accept();
-             ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
-             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream())) {
-            System.out.println("Clients connected");
+        while (true) {
+            try (ServerSocket serverSocket = new ServerSocket(PORT);
+                 Socket clientSocket = serverSocket.accept();
+                 ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
+                 ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream())) {
+                System.out.println("Clients connected");
 
-            executeSerialDataExchange(in, out);
+                executeSerialDataExchange(in, out);
 
-            if (in.read() != END_MSG) {
-                System.out.println("WARNING! END MESSAGE WAS NOT RECEIVED");
-                clientSocket.close();
+                if (in.read() != END_MSG) {
+                    System.out.println("WARNING! END MESSAGE WAS NOT RECEIVED");
+                    clientSocket.close();
+                }
+
+                System.out.println("end message received, ok");
             }
-
-            System.out.println("end message received, ok");
         }
     }
 }
