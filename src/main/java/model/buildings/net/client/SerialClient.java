@@ -3,6 +3,7 @@ package model.buildings.net.client;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import model.buildings.Building;
+import model.buildings.net.server.utility.SomeServerUtilities;
 import model.utilities.Buildings;
 import model.utilities.factories.impl.DwellingFactory;
 import model.utilities.factories.impl.HotelFactory;
@@ -13,13 +14,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import static model.buildings.net.server.utility.SomeServerUtilities.END_MSG;
+
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class SerialClient {
-    static int PORT = 8081;
     static File INFO = new File("src/main/resources/buildingsInfo.txt");
     static File TYPES = new File("src/main/resources/buildingsTypes.txt");
     static File PRICES = new File("src/main/resources/buildingsPrices.txt");
-    static int END_MSG = 228;
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         System.out.println("Reading buildings from file");
@@ -30,7 +31,7 @@ public class SerialClient {
             System.out.println(b);
         System.out.println("--------------------------------------------");
 
-        try (Socket socket = new Socket("localhost", PORT);
+        try (Socket socket = new Socket("localhost", SomeServerUtilities.SERIAL_PORT);
              ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
              ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
              PrintWriter outPrices = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(PRICES))))) {
