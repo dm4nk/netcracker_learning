@@ -95,7 +95,7 @@ public class SwingerClub {
     }
 
 
-    static JFrame getJFrame() {
+    private static JFrame getJFrame() {
         JFrame jFrame = new JFrame() {
         };
         jFrame.setVisible(true);
@@ -112,7 +112,7 @@ public class SwingerClub {
         return jFrame;
     }
 
-    static void updatePlanPanel() {
+    private static void updatePlanPanel() {
         rootPanel.removeAll();
         jPanel4.removeAll();
 
@@ -147,7 +147,7 @@ public class SwingerClub {
     }
 
 
-    static void updatePanel1() {
+    private static void updatePanel1() {
         BUILDING_TYPE_1.setText(TYPE_STR + building.getClass().getSimpleName());
         BUILDING_FLOORS_1.setText(SIZE_STR + building.size());
         BUILDING_SQUARE_1.setText(SQUARE_STR + building.size());
@@ -156,7 +156,7 @@ public class SwingerClub {
         jPanel1.revalidate();
     }
 
-    static void updatePanel2(Floor floor, int num) {
+    private static void updatePanel2(Floor floor, int num) {
         HASHTAG_2.setText(HASH_TAG_STR + (num + 1));
         SIZE_2.setText(SIZE_STR + floor.size());
         SQUARE_2.setText(SQUARE_STR + floor.sumSquare());
@@ -165,7 +165,7 @@ public class SwingerClub {
         jPanel2.revalidate();
     }
 
-    static void updatePanel3(Space space, int num) {
+    private static void updatePanel3(Space space, int num) {
         HASHTAG_3.setText(HASH_TAG_STR + (num + 1));
         SIZE_3.setText(SIZE_STR + space.getRooms());
         SQUARE_3.setText(SQUARE_STR + space.getSpace());
@@ -174,7 +174,7 @@ public class SwingerClub {
         jPanel3.revalidate();
     }
 
-    static void setPanelSettings() {
+    private static void setPanelSettings() {
 
         jPanel1.setLayout(new BoxLayout(jPanel1, BoxLayout.Y_AXIS));
         jPanel2.setLayout(new BoxLayout(jPanel2, BoxLayout.Y_AXIS));
@@ -208,7 +208,7 @@ public class SwingerClub {
         rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.X_AXIS));
     }
 
-    static JMenuBar getMenuBar() {
+    private static JMenuBar getMenuBar() {
         JMenuBar jMenuBar = new JMenuBar();
         JMenu file = new JMenu("File");
         JMenu lookAndFeel = new JMenu("Look&Feel");
@@ -237,22 +237,22 @@ public class SwingerClub {
             lookAndFeel.add(item);
         }
 
-        file.add(dwelling).addActionListener(new OpenBuilding(new DwellingFactory()));
+        file.add(dwelling).addActionListener(new BuildingOpener(new DwellingFactory()));
         file.addSeparator();
-        file.add(office).addActionListener(new OpenBuilding(new OfficeFactory()));
+        file.add(office).addActionListener(new BuildingOpener(new OfficeFactory()));
         file.addSeparator();
-        file.add(hotel).addActionListener(new OpenBuilding(new HotelFactory()));
+        file.add(hotel).addActionListener(new BuildingOpener(new HotelFactory()));
         file.addSeparator();
         file.add(new JMenuItem("Exit")).addActionListener(e -> System.exit(0));
 
         return jMenuBar;
     }
 
-    static class OpenBuilding extends AbstractAction {
+    private static class BuildingOpener extends AbstractAction {
 
         private final BuildingFactory factory;
 
-        OpenBuilding(BuildingFactory factory) {
+        BuildingOpener(BuildingFactory factory) {
             this.factory = factory;
         }
 
