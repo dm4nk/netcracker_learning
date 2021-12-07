@@ -18,64 +18,52 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class SwingerClub {
-
-    private SwingerClub() {
-    }
-
-    private static final JFrame mainFrame = getJFrame();
+public class Swin {
 
     //Strings
     private static final String SWING_VOPROS = "Swing???";
-
+    private static final JFrame mainFrame = getJFrame();
     //For Panel1
     private static final String TYPE_STR = "Type ";
     private static final String BUILDING_STR = "Building ";
-
     //For Panel2
     private static final String FLOOR_STR = "Floor";
-
     //For Panel3
     private static final String SPACE_3_STR = "Space";
-
     //Common
     private static final String SIZE_STR = "Size ";
     private static final String HASH_TAG_STR = "# ";
     private static final String SQUARE_STR = "Square ";
-
     //Panels
     private static final JPanel rootPanel = new JPanel();
-
     private static final JPanel jPanel1 = new JPanel();
     private static final JPanel jPanel2 = new JPanel();
     private static final JPanel jPanel3 = new JPanel();
     private static final JPanel jPanel4 = new JPanel();
-
-    //Labels
-
     //For Panel1
     private static final Label BUILDING_LABEL_1 = new Label(BUILDING_STR, Label.CENTER);
+
+    //Labels
     private static final Label BUILDING_TYPE_1 = new Label(TYPE_STR, Label.CENTER);
     private static final Label BUILDING_FLOORS_1 = new Label(SIZE_STR, Label.CENTER);
     private static final Label BUILDING_SQUARE_1 = new Label(SQUARE_STR, Label.CENTER);
-
     //For Panel2
     private static final Label FLOOR_2 = new Label(FLOOR_STR, Label.CENTER);
     private static final Label HASHTAG_2 = new Label(HASH_TAG_STR, Label.CENTER);
     private static final Label SIZE_2 = new Label(SIZE_STR, Label.CENTER);
     private static final Label SQUARE_2 = new Label(SQUARE_STR, Label.CENTER);
-
     //For Panel3
     private static final Label SPACE_3 = new Label(SPACE_3_STR, Label.CENTER);
     private static final Label HASHTAG_3 = new Label(HASH_TAG_STR, Label.CENTER);
     private static final Label SIZE_3 = new Label(SIZE_STR, Label.CENTER);
     private static final Label SQUARE_3 = new Label(SQUARE_STR, Label.CENTER);
-
     //Common
     private static final String DEFAULT_DIRECTORY = "C:/Users/Dmitrii/Desktop";
-
-
     private static Building building;
+
+
+    private Swin() {
+    }
 
     public static void main(String[] args) {
         mainFrame.add(rootPanel);

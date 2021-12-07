@@ -19,15 +19,13 @@ import java.util.List;
 
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public abstract class SomeServerUtilities {
-    static int PRICE_FOR_DWELLING = 1000;
-    static int PRICE_FOR_OFFICE = 1500;
-    static int PRICE_FOR_HOTEL = 2000;
-
     private static final double PROBABILITY_OF_ARREST = 0.1;
-
     public static int BINARY_PORT = 8080;
     public static int SERIAL_PORT = 8081;
     public static int END_MSG = 228;
+    static int PRICE_FOR_DWELLING = 1000;
+    static int PRICE_FOR_OFFICE = 1500;
+    static int PRICE_FOR_HOTEL = 2000;
 
     public static void executeSerialDataExchange(ObjectInputStream in, ObjectOutputStream out) throws IOException, ClassNotFoundException {
         System.out.println("Reading buildings");
