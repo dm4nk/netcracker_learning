@@ -20,7 +20,7 @@ public class Dwelling implements Building, Serializable {
     @NonNull
     private final Floor[] floors;
 
-    public Dwelling(int floorsCount, @NonNull int[] flatsCount) {
+    public Dwelling(int floorsCount, @NonNull int... flatsCount) {
         if (floorsCount != flatsCount.length) throw new InvalidRoomsCountException();
 
         floors = new DwellingFloor[floorsCount];
@@ -31,7 +31,7 @@ public class Dwelling implements Building, Serializable {
         }
     }
 
-    public Dwelling(Floor[] floors) {
+    public Dwelling(Floor... floors) {
         this.floors = floors;
     }
 

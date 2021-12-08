@@ -17,7 +17,7 @@ public class DwellingFloor implements Floor {
     @NonNull
     private Space[] spaces;
 
-    public DwellingFloor(Space[] spaces) {
+    public DwellingFloor(Space... spaces) {
         this.spaces = spaces;
     }
 

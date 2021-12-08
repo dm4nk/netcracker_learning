@@ -15,7 +15,7 @@ public class HotelFloor extends DwellingFloor {
     @NonNull
     private int stars;
 
-    public HotelFloor(@NonNull Space[] spaces) {
+    public HotelFloor(@NonNull Space... spaces) {
         super(spaces);
         this.stars = DEFAULT_STARS;
     }

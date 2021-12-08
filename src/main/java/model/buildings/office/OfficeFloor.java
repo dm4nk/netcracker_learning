@@ -17,7 +17,7 @@ public class OfficeFloor implements Floor {
     @NonNull
     private final MyList<Space> spaces;
 
-    public OfficeFloor(@NonNull Space[] spaces) {
+    public OfficeFloor(@NonNull Space... spaces) {
         this.spaces = new MyList<>();
         for (Space o : spaces)
             this.spaces.addToTail(o);

@@ -71,7 +71,7 @@ public class BuildingsTest {
         Floor floor2 = new DwellingFloor(new Office[]{new Office(1, 2), new Office(2, 2)});
         Floor floor3 = new DwellingFloor(new Office[]{new Office(1, 3), new Office(2, 3), new Office(3, 3)});
 
-        Building building1 = new OfficeBuilding(new Floor[]{floor1, floor2, floor3});
+        Building building1 = new OfficeBuilding(floor1, floor2, floor3);
         Building building2;
 
         File file = new File("src/test/resources/buildingsTestSerializeDeserialize.txt");
@@ -102,7 +102,7 @@ public class BuildingsTest {
         Floor floor3 = new DwellingFloor(new Office[]{new Office(1, 3), new Office(2, 33), new Office(3, 3)});
         Floor floor2 = new DwellingFloor(new Office[]{new Office(1, 4), new Office(2, 2)});
 
-        Building building1 = new OfficeBuilding(new Floor[]{floor1, floor2, floor3});
+        Building building1 = new OfficeBuilding(floor1, floor2, floor3);
 
         Floor[] floors = building1.getAllFloors();
 
@@ -127,7 +127,7 @@ public class BuildingsTest {
         Floor floor3 = new DwellingFloor(new Office[]{new Office(1, 3), new Office(2, 33), new Office(3, 3)});
         Floor floor2 = new DwellingFloor(new Office[]{new Office(1, 4), new Office(2, 2)});
 
-        Building building1 = new OfficeBuilding(new Floor[]{floor1, floor2, floor3});
+        Building building1 = new OfficeBuilding(floor1, floor2, floor3);
 
         Floor[] floors = building1.getAllFloors();
         Comparator<Floor> floorComparator = new FloorComparator();
@@ -153,8 +153,8 @@ public class BuildingsTest {
         int roomsCount = 3;
         double area = 19.;
 
-        Space officeSpace = Buildings.createSpace(area, Office.class);
-        Space dwellingSpace = Buildings.createSpace(roomsCount, area, Flat.class);
+        Space officeSpace = Buildings.createSpace(Office.class, area);
+        Space dwellingSpace = Buildings.createSpace(Flat.class, roomsCount, area);
 
         assertInstanceOf(Office.class, officeSpace);
         assertEquals(officeSpace.getSpace(), area);
@@ -169,9 +169,9 @@ public class BuildingsTest {
         int spaceCount = 12;
         Space[] spaces = new Space[]{new Flat(), new Office()};
 
-        Floor hotelFloor = Buildings.createFloor(spaceCount, HotelFloor.class);
-        Floor dwellingFloor = Buildings.createFloor(spaceCount, DwellingFloor.class);
-        Floor officeFloor = Buildings.createFloor(spaces, OfficeFloor.class);
+        Floor hotelFloor = Buildings.createFloor(HotelFloor.class, spaceCount);
+        Floor dwellingFloor = Buildings.createFloor(DwellingFloor.class, spaceCount);
+        Floor officeFloor = Buildings.createFloor(OfficeFloor.class, spaces);
 
         assertInstanceOf(HotelFloor.class, hotelFloor);
         assertEquals(spaceCount, hotelFloor.size());
@@ -189,9 +189,9 @@ public class BuildingsTest {
         int[] spacesCount = new int[]{1, 2, 3, 4};
         Floor[] floors = new Floor[]{floor1, floor2};
 
-        Building officeBuilding = Buildings.createBuilding(floorsCount, spacesCount, OfficeBuilding.class);
-        Building dwelling = Buildings.createBuilding(floorsCount, spacesCount, Dwelling.class);
-        Building hotel = Buildings.createBuilding(floors, Hotel.class);
+        Building officeBuilding = Buildings.createBuilding(OfficeBuilding.class, floorsCount, spacesCount);
+        Building dwelling = Buildings.createBuilding(Dwelling.class, floorsCount, spacesCount);
+        Building hotel = Buildings.createBuilding(Hotel.class, floors);
 
         assertInstanceOf(OfficeBuilding.class, officeBuilding);
         assertEquals(floorsCount, officeBuilding.size());
@@ -203,5 +203,30 @@ public class BuildingsTest {
 
         assertInstanceOf(Hotel.class, hotel);
         assertArrayEquals(floors, hotel.getAllFloors());
+    }
+
+    @Test
+    void testSort1() {
+        Floor floor1 = new OfficeFloor(new Office[]{new Office(1, 1)});
+        Floor floor3 = new DwellingFloor(new Office[]{new Office(1, 3), new Office(2, 33), new Office(3, 3)});
+        Floor floor2 = new DwellingFloor(new Office[]{new Office(1, 4), new Office(2, 2)});
+
+        Building building1 = new OfficeBuilding(floor1, floor2, floor3);
+
+        Floor[] floors = building1.getAllFloors();
+
+        Buildings.sort(floors, Floor::compareTo);
+
+        assertEquals(1, floors[0].size());
+        assertEquals(2, floors[1].size());
+        assertEquals(3, floors[2].size());
+
+        Space[] spaces = floor3.spaces();
+
+        Buildings.sort(spaces, Space::compareTo);
+
+        assertEquals(new Office(1, 3), spaces[0]);
+        assertEquals(new Office(3, 3), spaces[1]);
+        assertEquals(new Office(2, 33), spaces[2]);
     }
 }

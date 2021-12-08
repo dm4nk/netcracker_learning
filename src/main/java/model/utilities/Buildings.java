@@ -92,15 +92,15 @@ public abstract class Buildings {
                 for (int j = 0; j < spaceCounter; ++j) {
                     rooms = stream.readInt();
                     square = stream.readDouble();
-                    spaces[j] = createSpace(rooms, square, spaceClass);
+                    spaces[j] = createSpace(spaceClass, rooms, square);
                 }
 
-                floors[i] = createFloor(spaces, floorClass);
+                floors[i] = createFloor(floorClass, spaces);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return createBuilding(floors, buildingClass);
+        return createBuilding(buildingClass, floors);
     }
 
     public static void writeBuilding(@NonNull Building building, @NonNull Writer out) {
@@ -191,12 +191,12 @@ public abstract class Buildings {
                 rooms = (int) tokenizer.nval;
                 tokenizer.nextToken();
                 square = tokenizer.nval;
-                spaces[j] = createSpace(rooms, square, spaceClass);
+                spaces[j] = createSpace(spaceClass, rooms, square);
             }
 
-            floors[i] = createFloor(spaces, floorClass);
+            floors[i] = createFloor(floorClass, spaces);
         }
-        return createBuilding(floors, buildingClass);
+        return createBuilding(buildingClass, floors);
     }
 
     public static Building readBuilding(@NonNull Scanner scanner) {
@@ -246,13 +246,13 @@ public abstract class Buildings {
             for (int j = 0; j < spaceCounter; ++j) {
                 rooms = scanner.nextInt();
                 square = scanner.nextFloat();
-                spaces[j] = createSpace(rooms, square, spaceClass);
+                spaces[j] = createSpace(spaceClass, rooms, square);
             }
 
-            floors[i] = createFloor(spaces, floorClass);
+            floors[i] = createFloor(floorClass, spaces);
         }
 
-        return createBuilding(floors, buildingClass);
+        return createBuilding(buildingClass, floors);
     }
 
     public static void serializeBuilding(@NonNull Building building, @NonNull OutputStream out) {
@@ -285,6 +285,10 @@ public abstract class Buildings {
         Arrays.sort(t, comparator);
     }
 
+    public static <T> void sort(@NonNull T[] t, FunctionalInterface functionalInterface) {
+        Arrays.sort(t, (Comparator<T>) functionalInterface);
+    }
+
     public static Space createSpace(double area) {
         return buildingFactory.createSpace(area);
     }
@@ -297,44 +301,44 @@ public abstract class Buildings {
         return buildingFactory.createFloor(spacesCount);
     }
 
-    public static Floor createFloor(@NonNull Space[] spaces) {
+    public static Floor createFloor(@NonNull Space... spaces) {
         return buildingFactory.createFloor(spaces);
     }
 
-    public static Building createBuilding(int floorsCount, @NonNull int[] spacesCounts) {
+    public static Building createBuilding(int floorsCount, @NonNull int... spacesCounts) {
         return buildingFactory.createBuilding(floorsCount, spacesCounts);
     }
 
-    public static Building createBuilding(@NonNull Floor[] floors) {
+    public static Building createBuilding(@NonNull Floor... floors) {
         return buildingFactory.createBuilding(floors);
     }
 
-    public static <T extends Space> Space createSpace(double area, @NonNull Class<T> c) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public static <T extends Space> Space createSpace(@NonNull Class<T> c, double area) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Constructor<T> constructor = c.getConstructor(double.class);
         return constructor.newInstance(area);
     }
 
-    public static <T extends Space> Space createSpace(int roomsCount, double area, @NonNull Class<T> c) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public static <T extends Space> Space createSpace(@NonNull Class<T> c, int roomsCount, double area) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Constructor<T> constructor = c.getConstructor(int.class, double.class);
         return constructor.newInstance(roomsCount, area);
     }
 
-    public static <T extends Floor> Floor createFloor(int spacesCount, @NonNull Class<T> c) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public static <T extends Floor> Floor createFloor(@NonNull Class<T> c, int spacesCount) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Constructor<T> constructor = c.getConstructor(int.class);
         return constructor.newInstance(spacesCount);
     }
 
-    public static <T extends Floor> Floor createFloor(@NonNull Space[] spaces, @NonNull Class<T> c) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public static <T extends Floor> Floor createFloor(@NonNull Class<T> c, @NonNull Space... spaces) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Constructor<T> constructor = c.getConstructor(spaces.getClass());
         return constructor.newInstance((Object) spaces);
     }
 
-    public static <T extends Building> Building createBuilding(int floorsCount, @NonNull int[] spacesCounts, @NonNull Class<T> c) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public static <T extends Building> Building createBuilding(@NonNull Class<T> c, int floorsCount, @NonNull int... spacesCounts) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Constructor<T> constructor = c.getConstructor(int.class, spacesCounts.getClass());
         return constructor.newInstance(floorsCount, spacesCounts);
     }
 
-    public static <T extends Building> Building createBuilding(@NonNull Floor[] floors, @NonNull Class<T> c) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public static <T extends Building> Building createBuilding(@NonNull Class<T> c, @NonNull Floor... floors) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         Constructor<T> constructor = c.getConstructor(floors.getClass());
         return constructor.newInstance((Object) floors);
     }

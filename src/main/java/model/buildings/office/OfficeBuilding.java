@@ -20,7 +20,7 @@ public class OfficeBuilding implements Building, Serializable {
     @NonNull
     private final MyList<Floor> floors;
 
-    public OfficeBuilding(int floorsCount, @NonNull int[] flatsCount) {
+    public OfficeBuilding(int floorsCount, @NonNull int... flatsCount) {
         if (floorsCount != flatsCount.length) throw new InvalidRoomsCountException();
 
         floors = new MyList<>();
@@ -30,7 +30,7 @@ public class OfficeBuilding implements Building, Serializable {
         }
     }
 
-    public OfficeBuilding(@NonNull Floor[] floors) {
+    public OfficeBuilding(@NonNull Floor... floors) {
 
         this.floors = new MyList<>();
 

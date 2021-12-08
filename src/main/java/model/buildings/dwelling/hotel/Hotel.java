@@ -17,11 +17,11 @@ public class Hotel extends Dwelling {
     private static final int SUPER_SECRET_HASH_CODE_VARIABLE = 228;
     private static final double[] coef = new double[]{0, 0.25, 0.5, 1, 1.25, 1.5};
 
-    public Hotel(int floorsCount, @NonNull int[] flatsCount) {
+    public Hotel(int floorsCount, @NonNull int... flatsCount) {
         super(floorsCount, flatsCount);
     }
 
-    public Hotel(Floor[] floors) {
+    public Hotel(Floor... floors) {
         super(floors);
     }
 
